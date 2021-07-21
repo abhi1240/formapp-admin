@@ -34,6 +34,7 @@ class Seeders extends Authenticatable
         'email_verified_at',
         'password',
         'api_token',
+        'session_id',
     ];
 
     /**

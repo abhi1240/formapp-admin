@@ -30,16 +30,18 @@ class RegisterController extends Controller
             {
               return response()->json(json_encode($validator));
             } else {
-        $seeder = Seeders::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
-        $data = array();
-        $error = array();
+              $data = array();
+              $error = array();
+              $seeder = $data['seeder'] = Seeders::create([
+                  'name' => $request['name'],
+                  'email' => $request['email'],
+                  'password' => Hash::make($request['password']),
+              ])->toArray();
+
         if ($seeder) {
-          $data['seeder'] = Auth::user();
+          // $data['seeder'] = $data['user'];
           return response()->json($data);
+
         }else {
           return response()->json($error);
         }

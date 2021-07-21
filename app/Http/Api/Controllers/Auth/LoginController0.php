@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Seeders;
+use App\Model\Seeders;
 use Auth;
 
 class LoginController extends Controller
 {
   public function login(Request $request){
-
+    // if ($request) {
+    //   return response()->json('true');
+    // }
     $validator = Validator::make($request->all(), [
          'email' => 'required',
          'password' => 'required',
@@ -27,24 +29,8 @@ class LoginController extends Controller
      } else {
         $data = array();
         $error = array();
-
-        $seeder = Seeders::where('email', $request->email)->first();
         $credentials = $request->only('email', 'password');
         if (Auth::guard('seeder')->attempt($credentials)) {
-
-          $new_session_id = $request->session_id;
-
-          if ($seeder->session_id != '') {
-                $last_session = \Session::getHandler()->read($seeder->session_id);
-
-                if ($last_session) {
-                    if (\Session::getHandler()->destroy($seeder->session_id)) {
-
-                    }
-                }
-            }
-
-            Seeders::where('id', $seeder->id)->update(['session_id' => $new_session_id]);
 
           $data['user'] = Auth::guard('seeder')->user();
 
