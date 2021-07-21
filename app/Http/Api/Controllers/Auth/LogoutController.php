@@ -16,10 +16,11 @@ class LogoutController extends Controller
       $data = array();
       $id = $request->id;
       $api_token = $request->api_token;
-      $seeder = Seeders::where('id',$id)->where('api_token',$api_token)->first();
+      $seeder = Seeders::where('id',$id)->first();
       if ($seeder) {
         $logout = $seeder->update([
           'api_token' => NULL,
+          'session_id' => NULL,
         ]);
         if ($logout) {
           $data['msg'] = "Successfully logout";

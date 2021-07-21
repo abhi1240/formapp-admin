@@ -32,6 +32,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::guard('seeder')->attempt($credentials)) {
 
+          $api_token = $request->api_token;
           $new_session_id = $request->session_id;
 
           if ($seeder->session_id != '') {
@@ -43,7 +44,7 @@ class LoginController extends Controller
                     }
                 }
             }
-
+            Seeders::where('id', $seeder->id)->update(['api_token' => $api_token]);
             Seeders::where('id', $seeder->id)->update(['session_id' => $new_session_id]);
 
           $data['user'] = Auth::guard('seeder')->user();
