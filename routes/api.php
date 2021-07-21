@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Api\Controllers\Auth\LoginController;
 use App\Http\Api\Controllers\Auth\RegisterController;
+use App\Http\Api\Controllers\Auth\LogoutController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +17,9 @@ use App\Http\Api\Controllers\Auth\RegisterController;
 */
 Route::post('/seeder-login', [LoginController::class, 'login'])->name('api.login');
 Route::post('/seeder-register', [RegisterController::class, 'register'])->name('api.register');
+Route::post('/seeder-logout', [LogoutController::class, 'logout'])->name('api.logout');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
       return $request->user();
+
+
 });
