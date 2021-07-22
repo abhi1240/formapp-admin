@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Api\Controllers\Auth\LoginController;
 use App\Http\Api\Controllers\Auth\RegisterController;
 use App\Http\Api\Controllers\Auth\LogoutController;
+use App\Http\Api\Controllers\Auth\EmailVerifyController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,9 +18,8 @@ use App\Http\Api\Controllers\Auth\LogoutController;
 */
 Route::post('/seeder-login', [LoginController::class, 'login'])->name('api.login');
 Route::post('/seeder-register', [RegisterController::class, 'register'])->name('api.register');
-Route::post('/seeder-logout', [LogoutController::class, 'logout'])->name('api.logout');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
       return $request->user();
-
-
 });
+Route::post('/seeder-logout', [LogoutController::class, 'logout'])->name('api.logout');
+Route::get('/seeder-verify-email', [EmailVerifyController::class, 'verify_email']);
