@@ -40,7 +40,8 @@ class ImagesController extends Controller
       $image = PendingImages::where('id',$reject_id)->first();
       if ($image) {
         $create = RejectedImages::create([
-          'user_id' => $image->user_id,
+          'id' => $image->id,
+          'is_id' => $image->is_id,
           'paper_title' => $image->paper_title,
           'publication' => $image->publication,
           'language_id' => $image->language_id,
@@ -68,7 +69,8 @@ class ImagesController extends Controller
       // return response()->json($image);
       if ($image) {
         $create = ApprovedImages::create([
-          'user_id' => $image->user_id,
+          'id' => $image->id,
+          'is_id' => $image->is_id,
           'paper_title' => $image->paper_title,
           'publication' => $image->publication,
           'language_id' => $image->language_id,

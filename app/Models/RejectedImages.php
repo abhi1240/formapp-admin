@@ -24,5 +24,6 @@ class RejectedImages extends Model
       'year',
       'month',
       'date',
+      'img_date',
   ];
   }

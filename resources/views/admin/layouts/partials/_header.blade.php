@@ -88,12 +88,12 @@
                 </li>
                 <li class="nav-author">
                     <div class="dropdown-custom">
-                        <a href="javascript:;" class="nav-item-toggle"><img src="{{ asset('img/author-nav.jpg') }}"
+                        <a href="javascript:;" class="nav-item-toggle"><img src="{{ asset('images/profile.png') }}"
                                                                             alt="" class="rounded-circle"></a>
                         <div class="dropdown-wrapper">
                             <div class="nav-author__info">
                                 <div class="author-img">
-                                    <img src="{{ asset('img/author-nav.jpg') }}" alt="" class="rounded-circle">
+                                    <img src="{{ asset('images/profile.png') }}" alt="" class="rounded-circle">
                                 </div>
                                 <div>
                                     <h6>{{ Auth::user()->name }}</h6>

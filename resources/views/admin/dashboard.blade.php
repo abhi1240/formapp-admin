@@ -1,599 +1,258 @@
 @extends('admin.layouts.app')
 @section('content')
+  <style media="screen">
+  .counter{
+  color: #eb3b5a;
+  font-family: 'Muli', sans-serif;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  border-radius: 100%;
+  padding: 77px 32px 40px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.counter:before,
+.counter:after{
+  content: "";
+  background: #fff;
+  width: 80%;
+  height: 80%;
+  border-radius: 100%;
+  box-shadow: -5px 5px 5px rgba(0,0,0,0.3);
+  transform: translateX(-50%)translateY(-50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+}
+.counter:after{
+  background: linear-gradient(45deg,#B81242 49%, #D74A75 50%);
+  width: 100%;
+  height: 100%;
+  box-shadow: none;
+  transform: translate(0);
+  top: 0;
+  left: 0;
+  z-index: -2;
+  clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 50%);
+}
+.counter .counter-icon{
+  color: #fff;
+  background: linear-gradient(45deg,#B81242 49%, #D74A75 50%);
+  font-size: 33px;
+  line-height: 70px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  position: absolute;
+  top:  0;
+  left: 0;
+  z-index: 1;
+  transition: all 0.3s;
+}
+.counter .counter-icon i.fa{
+  transform: rotateX(0deg);
+  transition: all 0.3s ease 0s;
+}
+.counter:hover .counter-icon i.fa{ transform: rotateX(360deg); }
+.counter h3{
+  font-size: 14px;
+    font-weight: 500;
+    /* text-transform: uppercase; */
+    margin: 0 0 3px;
+    color: #4f4b49;
+}
+.counter .counter-value{
+  font-size: 30px;
+  font-weight: 700;
+}
+.counter.theme1{ color: #d9a5b3; }
+.counter.theme1:after, .counter.theme1 .counter-icon {
+    background: linear-gradient(45deg,#d9a5b3 49%,#d9a5b3b0 50%);
+}
+.counter.theme2{ color: #ff9a8d; }
+.counter.theme2:after,
+.counter.theme2 .counter-icon{
+  background: linear-gradient(45deg,#ff9a8d 49%,#ff9a8da3 50%)
+}
+.counter.theme3{ color: #5DB3E4; }
+.counter.theme3:after,
+.counter.theme3 .counter-icon{
+  background: linear-gradient(45deg,#5DB3E4 49%,#7ebee1d1 50%)
+}
+.counter.theme4{ color: #fa728a; }
+.counter.theme4:after,
+.counter.theme4 .counter-icon{
+  background: linear-gradient(45deg,#fa728a 49%,#ff5270a1 50%)
+}
+.counter.theme5{ color: #46a567; }
+.counter.theme5:after,
+.counter.theme5 .counter-icon{
+  background: linear-gradient(45deg,#46a567 49%,#45a466bd 50%)
+}
+.counter.theme6{ color: #4d5198; }
+.counter.theme6:after,
+.counter.theme6 .counter-icon{
+  background: linear-gradient(45deg,#4d5198 49%,#4d5198c4 50%)
+}
+.counter.theme7{ color: #a75cb9; }
+.counter.theme7:after,
+.counter.theme7 .counter-icon{
+  background: linear-gradient(45deg,#a75cb9 49%,#a75cb9ba 50%)
+}
+.counter.theme8{ color: #da68a0; }
+.counter.theme8:after,
+.counter.theme8 .counter-icon{
+  background: linear-gradient(45deg,#da68a0 49%,#db69a0b0 50%)
+}
+.counter.theme9{ color: #abc884; }
+.counter.theme9:after,
+.counter.theme9 .counter-icon{
+  background: linear-gradient(45deg,#abc884 49%,#abc884ad 50%)
+}
+@media screen and (max-width:990px){
+  .counter{ margin-bottom: 40px; }
+}
+  </style>
 <div class="contents">
    <div class="container-fluid">
-      <div class="row">
-         <div class="col-lg-12">
-            <div class="breadcrumb-main">
-               <h4 class="text-capitalize breadcrumb-title">Ecommerce Dashboard</h4>
-               <div class="breadcrumb-action justify-content-center flex-wrap">
-                  <div class="action-btn">
-                     <div class="form-group mb-0">
-                        <div class="input-container icon-left position-relative">
-                           <span class="input-icon icon-left">
-                           <span data-feather="calendar"></span>
-                           </span>
-                           <input type="text" class="form-control form-control-default date-ranger" name="date-ranger" placeholder="Oct 30, 2019 - Nov 30, 2019">
-                           <span class="input-icon icon-right">
-                           <span data-feather="chevron-down"></span>
-                           </span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="dropdown action-btn">
-                     <button class="btn btn-sm btn-default btn-white dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <i class="la la-download"></i> Export
-                     </button>
-                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <span class="dropdown-item">Export With</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="" class="dropdown-item">
-                        <i class="la la-print"></i> Printer</a>
-                        <a href="" class="dropdown-item">
-                        <i class="la la-file-pdf"></i> PDF</a>
-                        <a href="" class="dropdown-item">
-                        <i class="la la-file-text"></i> Google Sheets</a>
-                        <a href="" class="dropdown-item">
-                        <i class="la la-file-excel"></i> Excel (XLSX)</a>
-                        <a href="" class="dropdown-item">
-                        <i class="la la-file-csv"></i> CSV</a>
-                     </div>
-                  </div>
-                  <div class="dropdown action-btn">
-                     <button class="btn btn-sm btn-default btn-white dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <i class="la la-share"></i> Share
-                     </button>
-                     <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
-                        <span class="dropdown-item">Share Link</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="" class="dropdown-item">
-                        <i class="la la-facebook"></i> Facebook</a>
-                        <a href="" class="dropdown-item">
-                        <i class="la la-twitter"></i> Twitter</a>
-                        <a href="" class="dropdown-item">
-                        <i class="la la-google"></i> Google</a>
-                        <a href="" class="dropdown-item">
-                        <i class="la la-feed"></i> Feed</a>
-                        <a href="" class="dropdown-item">
-                        <i class="la la-instagram"></i> Instagram</a>
-                     </div>
-                  </div>
-                  <div class="action-btn">
-                     <a href="" class="btn btn-sm btn-primary btn-add">
-                     <i class="la la-plus"></i> Add New</a>
-                  </div>
-               </div>
+     <div class="row mt-1">
+        <div class="col-md-2 col-sm-6 mt-30">
+          <a href="{{route('admin.approve.users')}}">
+            <div class="counter theme1" >
+                <div class="counter-icon" >
+                    <i class="fa fa-user-check"></i>
+                </div>
+                <h3>Approved Users</h3>
+                <span class="counter-value" >
+                  @isset($data['approved_users'])
+                    {{$data['approved_users']}}
+                  @endisset
+                  </span>
             </div>
-         </div>
-         <div class="col-xxl-3 col-md-6 col-ssm-12 mb-30">
-            <!-- Card 1 -->
-            <div class="ap-po-details p-25 radius-xl bg-white d-flex justify-content-between">
-               <div>
-                  <div class="overview-content">
-                     <h1>7,461</h1>
-                     <p>Orders</p>
-                     <div class="ap-po-details-time">
-                        <span class="color-success"><i class="las la-arrow-up"></i>
-                        <strong>25%</strong></span>
-                        <small>Since last week</small>
-                     </div>
-                  </div>
-               </div>
-               <div class="ap-po-timeChart">
-                  <div class="overview-single__chart d-md-flex align-items-end">
-                     <div class="parentContainer">
-                        <div>
-                           <canvas id="mychart8"></canvas>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+          </a>
+        </div>
+        <div class="col-md-2 col-sm-6 mt-30">
+          <a href="{{route('admin.pending.users')}}">
+            <div class="counter theme2">
+                <div class="counter-icon">
+                    <i class="fa fa-user-edit"></i>
+                </div>
+                <h3>Pending Users</h3>
+                <span class="counter-value">
+                  @isset($data['pending_users'])
+                  {{$data['pending_users']}}
+                @endisset</span>
             </div>
-            <!-- Card 1 End -->
-         </div>
-         <div class="col-xxl-3 col-md-6 col-ssm-12 mb-30">
-            <!-- Card 2 End  -->
-            <div class="ap-po-details p-25 radius-xl bg-white d-flex justify-content-between">
-               <div>
-                  <div class="overview-content">
-                     <h1>$28,947</h1>
-                     <p>Revenue</p>
-                     <div class="ap-po-details-time">
-                        <span class="color-success"><i class="las la-arrow-up"></i>
-                        <strong>25%</strong></span>
-                        <small>Since last week</small>
-                     </div>
-                  </div>
-               </div>
-               <div class="ap-po-timeChart">
-                  <div class="overview-single__chart d-md-flex align-items-end">
-                     <div class="parentContainer">
-                        <div>
-                           <canvas id="mychart9"></canvas>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+          </a>
+        </div>
+        <div class="col-md-2 col-sm-6 mt-30">
+          <a href="{{route('new.accounts')}}">
+            <div class="counter theme3">
+                <div class="counter-icon">
+                    <i class="fa fa-person-booth"></i>
+                </div>
+                <h3>New Accounts</h3>
+                <span class="counter-value">
+                  @isset($data['new_accounts'])
+                  {{$data['new_accounts']}}
+                @endisset</span>
             </div>
-            <!-- Card 2 End  -->
-         </div>
-         <div class="col-xxl-3 col-md-6 col-ssm-12 mb-30">
-            <!-- Card 3 -->
-            <div class="ap-po-details p-25 radius-xl bg-white d-flex justify-content-between">
-               <div>
-                  <div class="overview-content">
-                     <h1>$3,241</h1>
-                     <p>Avg. Order Value</p>
-                     <div class="ap-po-details-time">
-                        <span class="color-danger"><i class="las la-arrow-down"></i>
-                        <strong>25%</strong></span>
-                        <small>Since last week</small>
-                     </div>
-                  </div>
-               </div>
-               <div class="ap-po-timeChart">
-                  <div class="overview-single__chart d-md-flex align-items-end">
-                     <div class="parentContainer">
-                        <div>
-                           <canvas id="mychart10"></canvas>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+          </a>
+        </div>
+        <div class="col-md-2 col-sm-6 mt-30">
+          <a href="{{route('support.staff')}}">
+            <div class="counter theme4">
+                <div class="counter-icon">
+                    <i class="fa fa-desktop"></i>
+                </div>
+                <h3>Total Support Staff</h3>
+                <span class="counter-value">
+                  @isset($data['support_staff'])
+                  {{$data['support_staff']}}
+                @endisset</span>
             </div>
-            <!-- Card 3 End -->
-         </div>
-         <div class="col-xxl-3 col-md-6 col-ssm-12 mb-30">
-            <!-- Card 1 -->
-            <div class="ap-po-details p-25 radius-xl bg-white d-flex justify-content-between">
-               <div>
-                  <div class="overview-content">
-                     <h1>45.32k</h1>
-                     <p>Unique visitors</p>
-                     <div class="ap-po-details-time">
-                        <span class="color-success"><i class="las la-arrow-up"></i>
-                        <strong>35%</strong></span>
-                        <small>Since last week</small>
-                     </div>
-                  </div>
-               </div>
-               <div class="ap-po-timeChart">
-                  <div class="overview-single__chart d-md-flex align-items-end">
-                     <div class="parentContainer">
-                        <div>
-                           <canvas id="mychart11"></canvas>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+          </a>
+        </div>
+        <div class="col-md-2 col-sm-6 mt-30">
+          <a href="{{route('image.quality.checker')}}">
+            <div class="counter theme5">
+                <div class="counter-icon">
+                    <i class="fa fa-balance-scale"></i>
+                </div>
+                <h3>Image Quality Checker</h3>
+                <span class="counter-value">
+                  @isset($data['iqc'])
+                  {{$data['iqc']}}
+                @endisset</span>
             </div>
-            <!-- Card 1 End -->
-         </div>
-         <div class="col-xl-6 col-lg-6 mb-30">
-            <div class="card broder-0">
-               <div class="card-header">
-                  <h6>Total Revenue</h6>
-                  <div class="card-extra">
-                     <ul class="card-tab-links mr-3 nav-tabs nav" role="tablist">
-                        <li>
-                           <a href="#tl_revenue-week" data-toggle="tab" id="tl_revenue-week-tab" role="tab" aria-selected="false">Week</a>
-                        </li>
-                        <li>
-                           <a href="#tl_revenue-month" data-toggle="tab" id="tl_revenue-month-tab" role="tab" aria-selected="false">Month</a>
-                        </li>
-                        <li>
-                           <a class="active" href="#tl_revenue-year" data-toggle="tab" id="tl_revenue-year-tab" role="tab" aria-selected="true">Year</a>
-                        </li>
-                     </ul>
-                     <div class="dropdown dropleft">
-                        <a href="#" role="button" id="revenue1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span data-feather="more-horizontal"></span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="revenue1">
-                           <a class="dropdown-item" href="#">Action</a>
-                           <a class="dropdown-item" href="#">Another action</a>
-                           <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- ends: .card-header -->
-               <div class="card-body pt-0">
-                  <div class="tab-content">
-                     <div class="tab-pane fade" id="tl_revenue-week" role="tabpanel" aria-labelledby="tl_revenue-week-tab">
-                        <div class="revenue-labels">
-                           <div>
-                              <strong class="text-primary">$72,848</strong>
-                              <span>Current Period</span>
-                           </div>
-                           <div>
-                              <strong>$52,458</strong>
-                              <span>Previous Period</span>
-                           </div>
-                        </div>
-                        <!-- ends: .performance-stats -->
-                        <div class="wp-chart">
-                           <div class="parentContainer">
-                              <div>
-                                 <canvas id="myChart6W"></canvas>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="tab-pane fade" id="tl_revenue-month" role="tabpanel" aria-labelledby="tl_revenue-month-tab">
-                        <div class="revenue-labels">
-                           <div>
-                              <strong class="text-primary">$72,848</strong>
-                              <span>Current Period</span>
-                           </div>
-                           <div>
-                              <strong>$52,458</strong>
-                              <span>Previous Period</span>
-                           </div>
-                        </div>
-                        <!-- ends: .performance-stats -->
-                        <div class="wp-chart">
-                           <div class="parentContainer">
-                              <div>
-                                 <canvas id="myChart6M"></canvas>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="tab-pane fade active show" id="tl_revenue-year" role="tabpanel" aria-labelledby="tl_revenue-year-tab">
-                        <div class="revenue-labels">
-                           <div>
-                              <strong class="text-primary">$72,848</strong>
-                              <span>Current Period</span>
-                           </div>
-                           <div>
-                              <strong>$52,458</strong>
-                              <span>Previous Period</span>
-                           </div>
-                        </div>
-                        <!-- ends: .performance-stats -->
-                        <div class="wp-chart">
-                           <div class="parentContainer">
-                              <div>
-                                 <canvas id="myChart6"></canvas>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- ends: .card-body -->
+          </a>
+        </div>
+        <div class="col-md-2 col-sm-6 mt-30">
+          <a href="{{route('content.quality.controller')}}">
+            <div class="counter theme6">
+                <div class="counter-icon">
+                    <i class="fa fa-file-signature"></i>
+                </div>
+                <h3>Content Quality Controller</h3>
+                <span class="counter-value">
+                  @isset($data['cqc'])
+                  {{$data['cqc']}}
+                @endisset</span>
             </div>
-         </div>
-         <div class="col-xl-6 col-lg-6 mb-30">
+          </a>
+        </div>
+        <div class="col-md-2 col-sm-6 mt-30">
+          <a href="{{route('pending.images')}}">
+            <div class="counter theme7">
+                <div class="counter-icon">
+                    <i class="fa fa-file-image"></i>
+                </div>
+                <h3>Pending Images</h3>
+                <span class="counter-value">
+                  @isset($data['pending_img'])
+                  {{$data['pending_img']}}
+                @endisset</span>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-2 col-sm-6 mt-30">
+          <a href="{{route('approved.images')}}">
+            <div class="counter theme8">
+                <div class="counter-icon">
+                    <i class="fa fa-images"></i>
+                </div>
+                <h3>Approved Images</h3>
+                <span class="counter-value">
+                  @isset($data['approved_img'])
+                  {{$data['approved_img']}}
+                @endisset</span>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-2 col-sm-6 mt-30">
+          <a href="{{route('rejected.images')}}">
+            <div class="counter theme9">
+                <div class="counter-icon">
+                    <i class="fa fa-trash-alt"></i>
+                </div>
+                <h3>Rejected Images</h3>
+                <span class="counter-value">
+                  @isset($data['rejected_img'])
+                  {{$data['rejected_img']}}
+                @endisset</span>
+            </div>
+          </a>
+        </div>
+    </div>
+
+      <div class="row mt-30">
+         <div class="col-xxl-8 col-lg-8 mb-30">
             <div class="card border-0">
                <div class="card-header">
-                  <h6>Source of Revenue Generated</h6>
-                  <div class="card-extra">
-                     <ul class="card-tab-links mr-3 nav-tabs nav">
-                        <li>
-                           <a href="#s_revenue-today" class="active" data-toggle="tab" id="s_revenue-today-tab" role="tab" area-controls="s_revenue-table" aria-selected="true">Today</a>
-                        </li>
-                        <li>
-                           <a href="#s_revenue-week" data-toggle="tab" id="s_revenue-week-tab" role="tab" area-controls="s_revenue-table" aria-selected="false">Week</a>
-                        </li>
-                        <li>
-                           <a href="#s_revenue-month" data-toggle="tab" id="s_revenue-month-tab" role="tab" area-controls="s_revenue-table" aria-selected="false">Month</a>
-                        </li>
-                        <li>
-                           <a href="#s_revenue-year" data-toggle="tab" id="s_revenue-year-tab" role="tab" area-controls="s_revenue-table" aria-selected="false">Year</a>
-                        </li>
-                     </ul>
-                     <div class="dropdown dropleft">
-                        <a href="#" role="button" id="action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span data-feather="more-horizontal"></span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="action">
-                           <a class="dropdown-item" href="#">Action</a>
-                           <a class="dropdown-item" href="#">Another action</a>
-                           <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="card-body p-0">
-                  <div class="tab-content">
-                     <div class="tab-pane fade active show" id="s_revenue-today" role="tabpanel" aria-labelledby="s_revenue-today-tab">
-                        <div class="table-responsive table-revenue">
-                           <table class="table table--default">
-                              <thead>
-                                 <tr>
-                                    <th>Name of Source</th>
-                                    <th>Visitors</th>
-                                    <th>Page View</th>
-                                    <th>Revenue</th>
-                                    <th>Trend</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>Direct</td>
-                                    <td>3,256</td>
-                                    <td>12,156</td>
-                                    <td>$2,225</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm1"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Email</td>
-                                    <td>4,658</td>
-                                    <td>21,584</td>
-                                    <td>$9,753</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm2"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Organic Search</td>
-                                    <td>1,698</td>
-                                    <td>7,956%</td>
-                                    <td>1,159</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm3"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Referral</td>
-                                    <td>2,856</td>
-                                    <td>8,256</td>
-                                    <td>1,456</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm4"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Social Media</td>
-                                    <td>9,456</td>
-                                    <td>36,478</td>
-                                    <td>13,852</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm5"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                     <div class="tab-pane fade" id="s_revenue-week" role="tabpanel" aria-labelledby="s_revenue-week-tab">
-                        <div class="table-responsive table-revenue">
-                           <table class="table table--default">
-                              <thead>
-                                 <tr>
-                                    <th>Name of Source</th>
-                                    <th>Visitors</th>
-                                    <th>Page View</th>
-                                    <th>Revenue</th>
-                                    <th>Trend</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>Direct</td>
-                                    <td>3,256</td>
-                                    <td>12,156</td>
-                                    <td>$2,225</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm1"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Email</td>
-                                    <td>4,658</td>
-                                    <td>21,584</td>
-                                    <td>$9,753</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm2"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Organic Search</td>
-                                    <td>1,698</td>
-                                    <td>7,956%</td>
-                                    <td>1,159</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm3"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Referral</td>
-                                    <td>2,856</td>
-                                    <td>8,256</td>
-                                    <td>1,456</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm4"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Social Media</td>
-                                    <td>9,456</td>
-                                    <td>36,478</td>
-                                    <td>13,852</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm5"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                     <div class="tab-pane fade" id="s_revenue-month" role="tabpanel" aria-labelledby="s_revenue-month-tab">
-                        <div class="table-responsive table-revenue">
-                           <table class="table table--default">
-                              <thead>
-                                 <tr>
-                                    <th>Name of Source</th>
-                                    <th>Visitors</th>
-                                    <th>Page View</th>
-                                    <th>Revenue</th>
-                                    <th>Trend</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>Direct</td>
-                                    <td>3,256</td>
-                                    <td>12,156</td>
-                                    <td>$2,225</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm1"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Email</td>
-                                    <td>4,658</td>
-                                    <td>21,584</td>
-                                    <td>$9,753</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm2"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Organic Search</td>
-                                    <td>1,698</td>
-                                    <td>7,956%</td>
-                                    <td>1,159</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm3"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Referral</td>
-                                    <td>2,856</td>
-                                    <td>8,256</td>
-                                    <td>1,456</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm4"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Social Media</td>
-                                    <td>9,456</td>
-                                    <td>36,478</td>
-                                    <td>13,852</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm5"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                     <div class="tab-pane fade" id="s_revenue-year" role="tabpanel" aria-labelledby="s_revenue-year-tab">
-                        <div class="table-responsive table-revenue">
-                           <table class="table table--default">
-                              <thead>
-                                 <tr>
-                                    <th>Name of Source</th>
-                                    <th>Visitors</th>
-                                    <th>Page View</th>
-                                    <th>Revenue</th>
-                                    <th>Trend</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>Direct</td>
-                                    <td>3,256</td>
-                                    <td>12,156</td>
-                                    <td>$2,225</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm1"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Email</td>
-                                    <td>4,658</td>
-                                    <td>21,584</td>
-                                    <td>$9,753</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm2"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Organic Search</td>
-                                    <td>1,698</td>
-                                    <td>7,956%</td>
-                                    <td>1,159</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm3"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Referral</td>
-                                    <td>2,856</td>
-                                    <td>8,256</td>
-                                    <td>1,456</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm4"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>Social Media</td>
-                                    <td>9,456</td>
-                                    <td>36,478</td>
-                                    <td>13,852</td>
-                                    <td>
-                                       <div class="d-flex justify-content-end">
-                                          <canvas id="lineChartSm5"></canvas>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="col-xxl-4 col-lg-6 mb-30">
-            <div class="card border-0">
-               <div class="card-header">
-                  <h6>Top Selling Products</h6>
+                  <h6>Average </h6>
                   <div class="card-extra">
                      <ul class="card-tab-links mr-3 nav-tabs nav" role="tablist">
                         <li>
@@ -605,20 +264,7 @@
                         <li>
                            <a href="#t_selling-month" data-toggle="tab" id="t_selling-month-tab" role="tab" aria-selected="true">Month</a>
                         </li>
-                        <li>
-                           <a href="#t_selling-year" data-toggle="tab" id="t_selling-year-tab" role="tab" aria-selected="true">Year</a>
-                        </li>
                      </ul>
-                     <div class="dropdown dropleft">
-                        <a href="#" role="button" id="todo12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span data-feather="more-horizontal"></span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="todo12">
-                           <a class="dropdown-item" href="#">Action</a>
-                           <a class="dropdown-item" href="#">Another action</a>
-                           <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                     </div>
                   </div>
                </div>
                <div class="card-body p-0">
@@ -630,41 +276,20 @@
                                  <thead>
                                     <tr>
                                        <th>Prduct Name</th>
-                                       <th>Price</th>
-                                       <th>Sold</th>
-                                       <th>Revenue</th>
+                                       <th>Total</th>
+                                       <th>Average</th>
                                     </tr>
                                  </thead>
                                  <tbody>
                                     <tr>
-                                       <td>Samsung Galaxy S8 256GB</td>
+                                       <td>Approved Images</td>
                                        <td>$289</td>
                                        <td>339</td>
-                                       <td>$60,258</td>
                                     </tr>
                                     <tr>
-                                       <td>Half Sleeve Shirt</td>
+                                       <td>Rejected Images</td>
                                        <td>$29</td>
                                        <td>136</td>
-                                       <td>$2,483</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Marco Shoes</td>
-                                       <td>$59</td>
-                                       <td>448</td>
-                                       <td>$19,758</td>
-                                    </tr>
-                                    <tr>
-                                       <td>15" Mackbook Pro</td>
-                                       <td>$1,299</td>
-                                       <td>159</td>
-                                       <td>$197,458</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Apple iPhone X</td>
-                                       <td>$899</td>
-                                       <td>146</td>
-                                       <td>115,254</td>
                                     </tr>
                                  </tbody>
                               </table>
@@ -675,46 +300,25 @@
                         <div class="selling-table-wrap">
                            <div class="table-responsive">
                               <table class="table table--default">
-                                 <thead>
-                                    <tr>
-                                       <th>Prduct Name</th>
-                                       <th>Price</th>
-                                       <th>Sold</th>
-                                       <th>Revenue</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>Samsung Galaxy S8 256GB</td>
-                                       <td>$289</td>
-                                       <td>339</td>
-                                       <td>$60,258</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Half Sleeve Shirt</td>
-                                       <td>$29</td>
-                                       <td>136</td>
-                                       <td>$2,483</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Marco Shoes</td>
-                                       <td>$59</td>
-                                       <td>448</td>
-                                       <td>$19,758</td>
-                                    </tr>
-                                    <tr>
-                                       <td>15" Mackbook Pro</td>
-                                       <td>$1,299</td>
-                                       <td>159</td>
-                                       <td>$197,458</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Apple iPhone X</td>
-                                       <td>$899</td>
-                                       <td>146</td>
-                                       <td>115,254</td>
-                                    </tr>
-                                 </tbody>
+                                <thead>
+                                   <tr>
+                                      <th>Prduct Name</th>
+                                      <th>Total</th>
+                                      <th>Average</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                   <tr>
+                                      <td>Approved Images</td>
+                                      <td>$289</td>
+                                      <td>339</td>
+                                   </tr>
+                                   <tr>
+                                      <td>Rejected Images</td>
+                                      <td>$29</td>
+                                      <td>136</td>
+                                   </tr>
+                                </tbody>
                               </table>
                            </div>
                         </div>
@@ -723,94 +327,25 @@
                         <div class="selling-table-wrap">
                            <div class="table-responsive">
                               <table class="table table--default">
-                                 <thead>
-                                    <tr>
-                                       <th>Prduct Name</th>
-                                       <th>Price</th>
-                                       <th>Sold</th>
-                                       <th>Revenue</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>Samsung Galaxy S8 256GB</td>
-                                       <td>$289</td>
-                                       <td>339</td>
-                                       <td>$60,258</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Half Sleeve Shirt</td>
-                                       <td>$29</td>
-                                       <td>136</td>
-                                       <td>$2,483</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Marco Shoes</td>
-                                       <td>$59</td>
-                                       <td>448</td>
-                                       <td>$19,758</td>
-                                    </tr>
-                                    <tr>
-                                       <td>15" Mackbook Pro</td>
-                                       <td>$1,299</td>
-                                       <td>159</td>
-                                       <td>$197,458</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Apple iPhone X</td>
-                                       <td>$899</td>
-                                       <td>146</td>
-                                       <td>115,254</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="tab-pane fade" id="t_selling-year" role="tabpanel" aria-labelledby="t_selling-year-tab">
-                        <div class="selling-table-wrap">
-                           <div class="table-responsive">
-                              <table class="table table--default">
-                                 <thead>
-                                    <tr>
-                                       <th>Prduct Name</th>
-                                       <th>Price</th>
-                                       <th>Sold</th>
-                                       <th>Revenue</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>Samsung Galaxy S8 256GB</td>
-                                       <td>$289</td>
-                                       <td>339</td>
-                                       <td>$60,258</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Half Sleeve Shirt</td>
-                                       <td>$29</td>
-                                       <td>136</td>
-                                       <td>$2,483</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Marco Shoes</td>
-                                       <td>$59</td>
-                                       <td>448</td>
-                                       <td>$19,758</td>
-                                    </tr>
-                                    <tr>
-                                       <td>15" Mackbook Pro</td>
-                                       <td>$1,299</td>
-                                       <td>159</td>
-                                       <td>$197,458</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Apple iPhone X</td>
-                                       <td>$899</td>
-                                       <td>146</td>
-                                       <td>115,254</td>
-                                    </tr>
-                                 </tbody>
+                                <thead>
+                                   <tr>
+                                      <th>Prduct Name</th>
+                                      <th>Total</th>
+                                      <th>Average</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                   <tr>
+                                      <td>Approved Images</td>
+                                      <td>$289</td>
+                                      <td>339</td>
+                                   </tr>
+                                   <tr>
+                                      <td>Rejected Images</td>
+                                      <td>$29</td>
+                                      <td>136</td>
+                                   </tr>
+                                </tbody>
                               </table>
                            </div>
                         </div>
@@ -819,211 +354,7 @@
                </div>
             </div>
          </div>
-         <div class="col-xxl-4 col-lg-6 mb-30">
-            <div class="card border-0">
-               <div class="card-header">
-                  <h6>Sales by Location</h6>
-                  <div class="card-extra">
-                     <ul class="card-tab-links mr-3 nav-tabs nav">
-                        <li>
-                           <a href="#sb_location-today" class="active" data-toggle="tab" id="sb_location-today-tab" role="tab" area-controls="sb_location-table" aria-selected="true">Today</a>
-                        </li>
-                        <li>
-                           <a href="#sb_location-week" data-toggle="tab" id="sb_location-week-tab" role="tab" area-controls="sb_location-table" aria-selected="false">Week</a>
-                        </li>
-                        <li>
-                           <a href="#sb_location-month" data-toggle="tab" id="sb_location-month-tab" role="tab" area-controls="sb_location-table" aria-selected="false">Month</a>
-                        </li>
-                        <li>
-                           <a href="#sb_location-year" data-toggle="tab" id="sb_location-year-tab" role="tab" area-controls="sb_location-table" aria-selected="false">Year</a>
-                        </li>
-                     </ul>
-                     <div class="dropdown dropleft">
-                        <a href="#" role="button" id="somethings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span data-feather="more-horizontal"></span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="somethings">
-                           <a class="dropdown-item" href="#">Action</a>
-                           <a class="dropdown-item" href="#">Another action</a>
-                           <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="card-body">
-                  <div class="tab-content">
-                     <div class="tab-pane fade active show" id="sb_location-today" role="tabpanel" aria-labelledby="sb_location-today-tab">
-                        <div class="d-flex align-items-center justify-content-center">
-                           <div class="regions-svg">
-                              <div id="region-map"></div>
-                           </div>
-                        </div>
-                        <div>
-                           <div class="table-responsive table-top-location">
-                              <table class="table table--default table-borderless mb-0">
-                                 <thead>
-                                    <tr>
-                                       <th>Top Location</th>
-                                       <th>Order</th>
-                                       <th>Revenue</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>United States</td>
-                                       <td>457</td>
-                                       <td>$26,457</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Australia</td>
-                                       <td>658</td>
-                                       <td>$44,658</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Canada</td>
-                                       <td>698</td>
-                                       <td>$101,698</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Japan</td>
-                                       <td>856</td>
-                                       <td>$2,856</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="tab-pane fade" id="sb_location-week" role="tabpanel" aria-labelledby="sb_location-week-tab">
-                        <div class="d-flex align-items-center justify-content-center">
-                           <div class="regions-svg">
-                              <div id="region-map_W"></div>
-                           </div>
-                        </div>
-                        <div>
-                           <div class="table-responsive table-top-location">
-                              <table class="table table--default table-borderless mb-0">
-                                 <thead>
-                                    <tr>
-                                       <th>Top Location</th>
-                                       <th>Order</th>
-                                       <th>Revenue</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>United States</td>
-                                       <td>457</td>
-                                       <td>$26,457</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Australia</td>
-                                       <td>658</td>
-                                       <td>$44,658</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Canada</td>
-                                       <td>698</td>
-                                       <td>$101,698</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Japan</td>
-                                       <td>856</td>
-                                       <td>$2,856</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="tab-pane fade" id="sb_location-month" role="tabpanel" aria-labelledby="sb_location-month-tab">
-                        <div class="d-flex align-items-center justify-content-center">
-                           <div class="regions-svg">
-                              <div id="region-map_M"></div>
-                           </div>
-                        </div>
-                        <div>
-                           <div class="table-responsive table-top-location">
-                              <table class="table table--default table-borderless mb-0">
-                                 <thead>
-                                    <tr>
-                                       <th>Top Location</th>
-                                       <th>Order</th>
-                                       <th>Revenue</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>United States</td>
-                                       <td>457</td>
-                                       <td>$26,457</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Australia</td>
-                                       <td>658</td>
-                                       <td>$44,658</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Canada</td>
-                                       <td>698</td>
-                                       <td>$101,698</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Japan</td>
-                                       <td>856</td>
-                                       <td>$2,856</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="tab-pane fade" id="sb_location-year" role="tabpanel" aria-labelledby="sb_location-year-tab">
-                        <div class="d-flex align-items-center justify-content-center">
-                           <div class="regions-svg">
-                              <div id="region-map_Y"></div>
-                           </div>
-                        </div>
-                        <div>
-                           <div class="table-responsive table-top-location">
-                              <table class="table table--default table-borderless mb-0">
-                                 <thead>
-                                    <tr>
-                                       <th>Top Location</th>
-                                       <th>Order</th>
-                                       <th>Revenue</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>United States</td>
-                                       <td>457</td>
-                                       <td>$26,457</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Australia</td>
-                                       <td>658</td>
-                                       <td>$44,658</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Canada</td>
-                                       <td>698</td>
-                                       <td>$101,698</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Japan</td>
-                                       <td>856</td>
-                                       <td>$2,856</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+
          <div class="col-xxl-4 col-lg-6 mb-30">
             <div class="revenue-device-chart">
                <div class="card broder-0">
@@ -1158,7 +489,7 @@
                                     <span>$5,870</span>
                                  </div>
                                  <div class="revenue-chart-legend__percentage">
-                                    <span>45%</span>
+                                    <span>85%</span>
                                  </div>
                               </div>
                               <!-- ends: .revenue-chart-legend -->
@@ -1171,7 +502,7 @@
                                     <span>$4,483</span>
                                  </div>
                                  <div class="revenue-chart-legend__percentage">
-                                    <span>30%</span>
+                                    <span>5%</span>
                                  </div>
                               </div>
                               <!-- ends: .revenue-chart-legend -->
@@ -1184,7 +515,7 @@
                                     <span>$2,420</span>
                                  </div>
                                  <div class="revenue-chart-legend__percentage">
-                                    <span>25%</span>
+                                    <span>10%</span>
                                  </div>
                               </div>
                               <!-- ends: .revenue-chart-legend -->
@@ -1205,4 +536,20 @@
 @section('scripts')
 <script src="{{ asset('vendor_assets/js/Chart.min.js') }}"></script>
 <script src="{{ asset('vendor_assets/js/charts.js') }}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.counter-value').each(function(){
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+        },{
+            duration: 1000,
+            easing: 'swing',
+            step: function (now){
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+});
+</script>
 @endsection

@@ -7,6 +7,10 @@ use App\Http\Controllers\Form\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Seeders;
+use App\Models\ApprovedImages;
+use App\Models\PendingImages;
+use App\Models\RejectedImages;
+
 use Carbon\Carbon;
 use Illuminate\Notifications\DatabaseNotification;
 
@@ -15,7 +19,27 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard');
+      $today = Carbon::today();
+      // $month = Carbon::date('m');
+      // dd($today);
+      $data = array();
+      $data['approved_users'] = Seeders::whereNotNull('approved_at')->count();
+      $data['pending_users'] = Seeders::whereNull('approved_at')->count();
+      $data['new_accounts'] = User::whereNull('rights','')->count();
+      $data['support_staff'] = User::where('rights','0')->count();
+      $data['iqc'] = User::where('rights','2')->count();
+      $data['cqc'] = User::where('rights','3')->count();
+      $data['approved_img'] = ApprovedImages::orderBy('id')->count();
+      $data['pending_img'] = PendingImages::orderBy('id')->count();
+      $data['rejected_img'] = RejectedImages::orderBy('id')->count();
+
+
+
+      $data['today_avg_apr_img'] = ApprovedImages::where('created_at',$today)->count();
+      $data['today_avg_rej_img'] = RejectedImages::where('created_at',$today)->count();
+
+
+        return view('admin.dashboard',compact('data'));
     }
 
     public function user_approve_list()

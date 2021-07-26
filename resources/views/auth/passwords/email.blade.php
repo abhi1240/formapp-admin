@@ -1,26 +1,16 @@
 @extends('home-layouts.app')
 @section('content')
+  <style media="screen">
+  .signUP-admin {
+      -ms-flex-pack: center!important;
+      justify-content: center!important;
+      height: 72vh;
+      margin-top:5rem;
+  }
+  </style>
     <div class="signUP-admin">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-xl-4 col-lg-5 col-md-5 p-0">
-                    <div class="signUP-admin-left signIn-admin-left position-relative">
-                        <div class="signUP-overlay">
-                            <img class="svg signupTop" src="{{ asset('img/svg/signupTop.svg') }}" alt="img"/>
-                            <img class="svg signupBottom" src="{{ asset('img/svg/signupBottom.svg') }}" alt="img"/>
-                        </div><!-- End: .signUP-overlay  -->
-                        <div class="signUP-admin-left__content">
-                            <div
-                                class="text-capitalize mb-md-30 mb-15 d-flex align-items-center justify-content-md-start justify-content-center">
-                                <img class="svg dark" src="{{ asset('img/Logo_Dark.png') }}" alt="">
-                            </div>
-                            <h1>Bootstrap 4 Laravel Web Application</h1>
-                        </div><!-- End: .signUP-admin-left__content  -->
-                        <div class="signUP-admin-left__img">
-                            <img class="img-fluid svg" src="{{ asset('img/svg/signupIllustration.svg') }}" alt="img"/>
-                        </div><!-- End: .signUP-admin-left__img  -->
-                    </div><!-- End: .signUP-admin-left  -->
-                </div><!-- End: .col-xl-4  -->
                 <div class="col-xl-8 col-lg-7 col-md-7 col-sm-8">
                     <div class="signUp-admin-right signIn-admin-right  p-md-40 p-10">
                         <div
@@ -38,7 +28,7 @@
                                     <div class="card border-0">
                                         <div class="card-header border-0  pb-md-15 pb-10 pt-md-20 pt-10 ">
                                             <div class="edit-profile__title">
-                                                <h6>Admin <span class="color-primary">{{ __('Reset Password') }}</span></h6>
+                                                <h6>Form Filling <span class="color-primary">{{ __('Reset Password') }}</span></h6>
                                             </div>
                                         </div>
                                         <div class="card-body">

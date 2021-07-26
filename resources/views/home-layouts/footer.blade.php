@@ -3,28 +3,28 @@
         <div class="row">
           <div class="col-md-8 text-center text-md-left g-mb-10 g-mb-0--md">
             <div class="d-lg-flex">
-              <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2020 © All Rights Reserved.</small>
+              <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2021 © All Rights Reserved.</small>
               <ul class="u-list-inline">
                 <li class="list-inline-item">
-                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Privacy Policy</a>
+                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{route('privacy_policy')}}">Privacy Policy</a>
                 </li>
                 <li class="list-inline-item">
                   <span>|</span>
                 </li>
                 <li class="list-inline-item">
-                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Terms of Use</a>
+                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{route('terms_and_conditions')}}">Terms and Conditions</a>
                 </li>
                 <li class="list-inline-item">
                   <span>|</span>
                 </li>
                 <li class="list-inline-item">
-                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">License</a>
+                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{route('refund_policy')}}">Refund Policy</a>
                 </li>
                 <li class="list-inline-item">
                   <span>|</span>
                 </li>
                 <li class="list-inline-item">
-                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Support</a>
+                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{route('links.support')}}">Support</a>
                 </li>
               </ul>
             </div>

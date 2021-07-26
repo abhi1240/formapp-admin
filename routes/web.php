@@ -36,6 +36,7 @@ use App\Http\Controllers\Form\QualityControlController;
 use App\Http\Controllers\Form\UserDashboardController;
 use App\Http\Controllers\Form\ImagesController;
 use App\Http\Controllers\Form\TablesController;
+use App\Http\Controllers\Form\AppLinksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,6 +91,11 @@ Route::get('/linkstorage', function () {
 });
 //Routes
 Route::get('/', [LoginController::class, 'loginForm']);
+Route::get('/privacy-policy', [AppLinksController::class, 'privacy_policy'])->name('privacy_policy');
+Route::get('/terms-and-conditions', [AppLinksController::class, 'terms_and_conditions'])->name('terms_and_conditions');
+Route::get('/refund-policy', [AppLinksController::class, 'refund_policy'])->name('refund_policy');
+Route::get('/support-link', [AppLinksController::class, 'support'])->name('links.support');
+
     Route::group(['middleware' => 'auth'], function () {
 
 			//admin routes

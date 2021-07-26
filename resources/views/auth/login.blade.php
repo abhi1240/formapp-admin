@@ -78,8 +78,8 @@
 
             <div class="col-md-6 flex-md-first align-self-center g-mb-80">
               <div class="mb-5">
-                <h1 class="h3 g-color-white g-font-weight-600 mb-3">Lorem ipsum dolor sit amet, <br>consectetur adipiscing elit!</h1>
-                <p class="g-color-white-opacity-0_8 g-font-size-12 text-uppercase">sed do eiusmod tempor</p>
+                <h1 class="h3 g-color-white g-font-weight-600 mb-3">If opportunity doesn't knock,<br>build a door!</h1>
+                {{-- <p class="g-color-white-opacity-0_8 g-font-size-12 text-uppercase">sed do eiusmod tempor</p> --}}
               </div>
 
               <div class="row">
@@ -92,7 +92,7 @@
                       </span>
                     </div>
                     <div class="media-body align-self-center">
-                      <p class="g-color-white mb-0">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      <p class="g-color-white mb-0">Form Filling software enables the replacement of paper-based images with manual data entry processes.</p>
                     </div>
                   </div>
                   <!-- End Icon Blocks -->
@@ -105,13 +105,13 @@
                       </span>
                     </div>
                     <div class="media-body align-self-center">
-                      <p class="g-color-white mb-0">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                      <p class="g-color-white mb-0">Data classification, extraction and validation allow for the efficient and accurate entry of data to a computer.</p>
                     </div>
                   </div>
                   <!-- End Icon Blocks -->
 
                   <!-- Testimonials -->
-                  <blockquote class="u-blockquote-v1 g-color-main rounded g-pl-60 g-pr-30 g-py-25 g-mb-40">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  <blockquote class="u-blockquote-v1 g-color-main rounded g-pl-60 g-pr-30 g-py-25 g-mb-40">A successful freelancer whose expertise is administrative services and digital marketing task.
                   </blockquote>
                   <div class="media">
 
