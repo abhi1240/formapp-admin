@@ -283,13 +283,21 @@
                                  <tbody>
                                     <tr>
                                        <td>Approved Images</td>
-                                       <td>$289</td>
-                                       <td>339</td>
+                                       <td>@isset($data['total_count_today'])
+                                         {{$data['total_count_today']}}
+                                       @endisset</td>
+                                       <td>@isset($data['today_apr_avg'])
+                                         {{$data['today_apr_avg']}}
+                                       @endisset</td>
                                     </tr>
                                     <tr>
                                        <td>Rejected Images</td>
-                                       <td>$29</td>
-                                       <td>136</td>
+                                       <td>@isset($data['total_count_today'])
+                                         {{$data['total_count_today']}}
+                                       @endisset</td>
+                                       <td>@isset($data['todays_rej_avg'])
+                                         {{$data['todays_rej_avg']}}
+                                       @endisset</td>
                                     </tr>
                                  </tbody>
                               </table>

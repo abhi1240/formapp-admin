@@ -33,11 +33,23 @@ class AdminController extends Controller
       $data['pending_img'] = PendingImages::orderBy('id')->count();
       $data['rejected_img'] = RejectedImages::orderBy('id')->count();
 
+      //todays avg
+
+      $data['a_count'] = $a_count = ApprovedImages::where('img_date',$today)->count();
+      $data['p_count'] = $p_count = PendingImages::where('created_at',$today)->count();
+      $data['r_count'] = $r_count = RejectedImages::where('img_date',$today)->count();
+
+      $data['total_count_today'] = $total_count = $a_count + $p_count + $r_count;
+      $apr_img_today = ApprovedImages::where('created_at',$today)->count();
+      $rej_img_today = RejectedImages::where('created_at',$today)->count();
+      if ($a_count && $p_count && $r_count ) {
+        $data['today_apr_avg'] = ($apr_img_today / $total_count) * 100;
+        $data['todays_rej_avg'] = ($rej_img_today / $total_count) * 100;
+      }
 
 
-      $data['today_avg_apr_img'] = ApprovedImages::where('created_at',$today)->count();
-      $data['today_avg_rej_img'] = RejectedImages::where('created_at',$today)->count();
 
+      //end
 
         return view('admin.dashboard',compact('data'));
     }

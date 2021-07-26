@@ -50,6 +50,7 @@ class ImagesController extends Controller
           'year' => $image->year,
           'month' => $image->month,
           'date' => $image->date,
+          'img_date' => $image->created_at,
         ]);
 
         if ($create) {
@@ -79,6 +80,7 @@ class ImagesController extends Controller
           'year' => $image->year,
           'month' => $image->month,
           'date' => $image->date,
+          'img_date' => $image->created_at,
         ]);
 
         if ($create) {
