@@ -15,6 +15,24 @@
          <li class="menu-title m-top-30">
             <span>Applications </span>
          </li>
+
+         <li class="has-child {{ request()->is('support/tables/*') ? 'open' : ''}}">
+            <a href="{{ route('dashboard') }}" class="{{ request()->is('support/tables/*') ? 'active' : ''}}">
+            <span data-feather="settings" class="nav-icon"></span>
+            <span class="menu-text">Tables</span>
+            <span class="toggle-icon"></span>
+            </a>
+            <ul>
+               <li>
+                  <a class="{{ Route::is('support.tables.languages')  ? 'active' : '' }}"
+                     href="{{ route('support.tables.languages') }}">Languages</a>
+               </li>
+               <li>
+                  <a class="{{ Route::is('support.tables.papers')  ? 'active' : '' }}"
+                     href="{{ route('support.tables.papers') }}">Papers</a>
+               </li>
+            </ul>
+         </li>
          {{-- end --}}
 
          <li class="menu-title m-top-30">

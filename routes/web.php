@@ -35,6 +35,7 @@ use App\Http\Controllers\Form\QualityCheckerController;
 use App\Http\Controllers\Form\QualityControlController;
 use App\Http\Controllers\Form\UserDashboardController;
 use App\Http\Controllers\Form\ImagesController;
+use App\Http\Controllers\Form\TablesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -123,6 +124,23 @@ Route::get('/', [LoginController::class, 'loginForm']);
 						Route::get('/status_change', [AccountsController::class, 'status_change'])->name('status.change');
 
 						});
+
+						Route::group(['prefix' => 'tables'], function () {
+							//languages
+						Route::get('/languages', [TablesController::class, 'languages'])->name('tables.languages');
+						Route::post('/languages_store', [TablesController::class, 'languages_store'])->name('tables.languages.store');
+						Route::post('/languages_remove', [TablesController::class, 'languages_remove'])->name('tables.languages.remove');
+						Route::post('/languages_update', [TablesController::class, 'languages_update'])->name('tables.languages.update');
+						Route::get('/languages_status_update', [TablesController::class, 'languages_status_update'])->name('tables.languages.update.status');
+
+						//papers
+						Route::get('/papers', [TablesController::class, 'papers'])->name('tables.papers');
+						Route::post('/papers_store', [TablesController::class, 'papers_store'])->name('tables.papers.store');
+						Route::post('/papers_remove', [TablesController::class, 'papers_remove'])->name('tables.papers.remove');
+						Route::post('/papers_update', [TablesController::class, 'papers_update'])->name('tables.papers.update');
+						Route::get('/papers_status_update', [TablesController::class, 'papers_status_update'])->name('tables.papers.update.status');
+						//end
+						});
 					});
 				});
 				//end
@@ -130,6 +148,23 @@ Route::get('/', [LoginController::class, 'loginForm']);
 			Route::group(['middleware' => 'support'], function () {
 	        Route::group(['prefix' => 'support'], function () {
 						Route::get('/dashboard', [SupportController::class, 'dashboard'])->name('support.dashboard');
+
+						Route::group(['prefix' => 'tables'], function () {
+							//languages
+						Route::get('/languages', [SupportController::class, 'languages'])->name('support.tables.languages');
+						Route::post('/languages_store', [TablesController::class, 'languages_store'])->name('support.tables.languages.store');
+						Route::post('/languages_remove', [TablesController::class, 'languages_remove'])->name('support.tables.languages.remove');
+						Route::post('/languages_update', [TablesController::class, 'languages_update'])->name('support.tables.languages.update');
+						Route::get('/languages_status_update', [TablesController::class, 'languages_status_update'])->name('support.tables.languages.update.status');
+
+						//papers
+						Route::get('/papers', [SupportController::class, 'papers'])->name('support.tables.papers');
+						Route::post('/papers_store', [TablesController::class, 'papers_store'])->name('support.tables.papers.store');
+						Route::post('/papers_remove', [TablesController::class, 'papers_remove'])->name('support.tables.papers.remove');
+						Route::post('/papers_update', [TablesController::class, 'papers_update'])->name('support.tables.papers.update');
+						Route::get('/papers_status_update', [TablesController::class, 'papers_status_update'])->name('support.tables.papers.update.status');
+						//end
+						});
 				});
 			});
 			//support ends

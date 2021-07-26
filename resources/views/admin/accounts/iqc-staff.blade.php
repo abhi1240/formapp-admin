@@ -57,8 +57,8 @@
                                    <td>
                                       <div class="userDatatable-content">
                                         <div class="custom-control custom-switch switch-info switch-md ">
-                                                <input type="checkbox" data-id="{{ $user->id }}" class="custom-control-input active_inactive"  id="switch-dynamic-badge" {{ $user->status == 1 ? 'checked' : '' }}>
-                                                <label class="custom-control-label" for="switch-dynamic-badge"></label>
+                                                <input type="checkbox" data-id="{{ $user->id }}" class="custom-control-input active_inactive"  id="switch-dynamic-badge{{ $user->id }}" {{ $user->status == 1 ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="switch-dynamic-badge{{ $user->id }}"></label>
                                             </div>
                                         </div>
                                    </td>

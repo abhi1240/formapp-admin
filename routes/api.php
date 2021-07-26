@@ -8,6 +8,9 @@ use App\Http\Api\Controllers\Auth\LogoutController;
 use App\Http\Api\Controllers\Auth\EmailVerifyController;
 use App\Http\Api\Controllers\UserDashboardController;
 use App\Http\Api\Controllers\UserExplorerController;
+use App\Http\Api\Controllers\UserSettingsController;
+use App\Http\Api\Controllers\UserImgUploadController;
+use App\Http\Api\Controllers\LocationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,3 +34,8 @@ Route::get('/user-explorer', [UserExplorerController::class, 'user_explorer']);
 Route::get('/user-explorer-month', [UserExplorerController::class, 'user_explorer_month']);
 Route::get('/user-explorer-date', [UserExplorerController::class, 'user_explorer_date']);
 Route::get('/user-explorer-file', [UserExplorerController::class, 'user_explorer_file']);
+Route::post('/user-profile-setting', [UserSettingsController::class, 'user_profile_setting']);
+Route::post('/user-image-upload', [UserImgUploadController::class, 'user_image_upload']);
+//locations
+Route::get('/states', [LocationController::class, 'get_states']);
+Route::get('/citys', [LocationController::class, 'get_citys']);

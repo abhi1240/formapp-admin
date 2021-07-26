@@ -54,6 +54,9 @@
                </li>
             </ul>
          </li>
+
+
+
          <li class="has-child {{ request()->is('admin/accounts/*') ? 'open' : ''}}">
             <a href="{{ route('dashboard') }}" class="{{ request()->is('admin/accounts/*') ? 'active' : ''}}">
             <span data-feather="monitor" class="nav-icon"></span>
@@ -76,6 +79,24 @@
                <li>
                   <a class="{{ Route::is('content.quality.controller')  ? 'active' : '' }}"
                      href="{{ route('content.quality.controller') }}">Content Quality Controller</a>
+               </li>
+            </ul>
+         </li>
+
+         <li class="has-child {{ request()->is('admin/tables/*') ? 'open' : ''}}">
+            <a href="{{ route('dashboard') }}" class="{{ request()->is('admin/tables/*') ? 'active' : ''}}">
+            <span data-feather="settings" class="nav-icon"></span>
+            <span class="menu-text">Tables</span>
+            <span class="toggle-icon"></span>
+            </a>
+            <ul>
+               <li>
+                  <a class="{{ Route::is('tables.languages')  ? 'active' : '' }}"
+                     href="{{ route('tables.languages') }}">Languages</a>
+               </li>
+               <li>
+                  <a class="{{ Route::is('tables.papers')  ? 'active' : '' }}"
+                     href="{{ route('tables.papers') }}">Papers</a>
                </li>
             </ul>
          </li>
