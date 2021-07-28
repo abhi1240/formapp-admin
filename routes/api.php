@@ -10,6 +10,7 @@ use App\Http\Api\Controllers\UserDashboardController;
 use App\Http\Api\Controllers\UserExplorerController;
 use App\Http\Api\Controllers\UserSettingsController;
 use App\Http\Api\Controllers\UserImgUploadController;
+use App\Http\Api\Controllers\ContentSeederController;
 use App\Http\Api\Controllers\LocationController;
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,11 @@ Route::get('/user-explorer-date', [UserExplorerController::class, 'user_explorer
 Route::get('/user-explorer-file', [UserExplorerController::class, 'user_explorer_file']);
 Route::post('/user-profile-setting', [UserSettingsController::class, 'user_profile_setting']);
 Route::post('/user-image-upload', [UserImgUploadController::class, 'user_image_upload']);
+
+//content seeder api
+Route::get('/approved_images', [ContentSeederController::class, 'approved_images']);
+Route::get('/data_image', [ContentSeederController::class, 'data_image']);
+Route::post('/data_entry_form_upload', [ContentSeederController::class, 'data_entry_form_upload']);
 //locations
 Route::get('/states', [LocationController::class, 'get_states']);
 Route::get('/citys', [LocationController::class, 'get_citys']);

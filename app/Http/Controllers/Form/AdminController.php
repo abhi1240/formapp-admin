@@ -10,6 +10,7 @@ use App\Models\Seeders;
 use App\Models\ApprovedImages;
 use App\Models\PendingImages;
 use App\Models\RejectedImages;
+use Illuminate\Support\Facades\Validator;
 
 use Carbon\Carbon;
 use Illuminate\Notifications\DatabaseNotification;
@@ -113,5 +114,35 @@ class AdminController extends Controller
 
     public function notifications(){
     return view('admin.notifications');
+  }
+
+  public function status_change(Request $request){
+    $validator = Validator::make($request->all(), [
+         'id' => 'required',
+         'status' => 'required',
+     ], [
+       'id' => 'Id Error',
+       'status' => 'status error',
+     ]);
+
+     if($validator->fails())
+     {
+       return response()->json(['error' => 'Please Try later']);
+     } else {
+
+         $id = $request->id;
+         $user = Seeders::findOrFail($request->id);
+         if ($user) {
+           $user_update = $user->update([
+             'status' => $request->status,
+           ]);
+           if ($user_update) {
+             return response()->json(['success' => 'Successfully Changed Status ']);
+           }else {
+             return response()->json(['error' => 'Please Try later']);
+           }
+         } else {
+         }
+     }
   }
 }

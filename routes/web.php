@@ -109,6 +109,7 @@ Route::get('/support-link', [AppLinksController::class, 'support'])->name('links
 						Route::get('/approved-users', [AdminController::class, 'user_approve_list'])->name('admin.approve.users');
 						Route::get('/pending-users', [AdminController::class, 'pending_users'])->name('admin.pending.users');
 						Route::post('/approve', [AdminController::class, 'user_approve'])->name('admin.user.approve');
+						Route::get('/seeder_status_change', [AdminController::class, 'status_change']);
 					});
 
 					Route::group(['prefix' => 'images'], function () {

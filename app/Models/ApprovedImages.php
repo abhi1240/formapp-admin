@@ -25,5 +25,6 @@ class ApprovedImages extends Model
       'month',
       'date',
       'img_date',
+      'cs_id',
   ];
 }

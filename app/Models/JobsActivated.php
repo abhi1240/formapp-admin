@@ -13,7 +13,7 @@ class JobsActivated extends Model
 
   protected $fillable = [
       'id',
-      'img_id ',
+      'img_id',
       'is_id',
       'cs_id',
       'paper_title',

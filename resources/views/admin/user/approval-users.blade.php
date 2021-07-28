@@ -57,6 +57,9 @@
 	                                 <th>
 	                                    <span class="userDatatable-title">Email</span>
 	                                 </th>
+																	 <th>
+	                                    <span class="userDatatable-title">Status</span>
+	                                 </th>
 	                              </tr>
 	                           </thead>
 	                           <tbody>
@@ -78,6 +81,14 @@
 	                                       {{$user->email}}
 	                                    </div>
 	                                 </td>
+																	 <td>
+                                      <div class="userDatatable-content">
+                                        <div class="custom-control custom-switch switch-info switch-md ">
+                                                <input type="checkbox" data-id="{{ $user->id }}" class="custom-control-input active_inactive"  id="switch-dynamic-badge{{ $user->id }}" {{ $user->status == 1 ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="switch-dynamic-badge{{ $user->id }}"></label>
+                                            </div>
+                                        </div>
+                                   </td>
 	                              </tr>
 															@empty
 														 @endforelse
@@ -99,6 +110,35 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 	  $('.approved_users').DataTable();
+		$('.active_inactive').change(function () {
+        var status = $(this).prop('checked') === true ? 1 : 0;
+
+        var id = $(this).data('id');
+        var url = $('meta[name="url"]').attr('content');
+        // console.log(status);
+        // console.log(id);
+        $.ajax({
+          type: "GET",
+          url: url + '/admin/user/seeder_status_change',
+          data:{
+            id:id,
+            status:status,
+          },
+          dataType: "json",
+          success: function (res) {
+            toastr.options.closeButton = true;
+            toastr.options.closeMethod = 'fadeOut';
+            toastr.options.closeDuration = 100;
+            toastr.success(res.success);
+            },
+          error:function(res){
+            toastr.options.closeButton = true;
+            toastr.options.closeMethod = 'fadeOut';
+            toastr.options.closeDuration = 100;
+            toastr.success(res.error);
+          },
+        });
+    });
 	});
 	</script>
 @endsection
