@@ -18,7 +18,7 @@
                     <a href="{{route('support.dashboard')}}" class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13"  >Dashboard</a>
                   @endif
                   @if (Auth::user()->rights == '1')
-                    <a href="{{route('admin.dashboard')}}" class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13"  >Dashboard</a>
+                    <a href="{{route('dashboard')}}" class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13"  >Dashboard</a>
                   @endif
                   @if (Auth::user()->rights == '2')
                     <a href="{{route('quality_checker.dashboard')}}" class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13"  >Dashboard</a>

@@ -13,7 +13,6 @@
                 <header class="text-center mb-4">
                   <h2 class="h2 g-color-black g-font-weight-600">Login</h2>
                 </header>
-
                 <!-- Form -->
                 <p class="text-danger"></p>
                 <form method="POST" action="{{ route('login') }}">
@@ -66,6 +65,13 @@
                 <input name="submit" type="submit" class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" value="Login"/>
 
                 </div>
+
+                @if(session()->has('Unauthorised'))
+              <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close mr-2" data-dismiss="alert" aria-label="close">&times;</a>
+                  {{ session()->get('Unauthorised') }}
+              </div>
+                @endif
 
                 </form>
                 <!-- End Form -->
@@ -128,6 +134,4 @@
         </div>
       </section>
 </div>
-
-
 @endsection

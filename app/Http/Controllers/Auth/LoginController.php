@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 
@@ -49,19 +50,21 @@ class LoginController extends Controller
                   break;
 
               case 2:
-              $this->redirectTo = '/quality_checker/dashboard';
+              Auth::logout();
+              Session::flash('Unauthorised', 'Unauthorised');
+              $this->redirectTo = '/login';
               return $this->redirectTo;
                   break;
 
               case 3:
-              $this->redirectTo = '/quality_controller/dashboard';
+              Auth::logout();
+              Session::flash('Unauthorised', 'Unauthorised');
+              $this->redirectTo = '/login';
               return $this->redirectTo;
                   break;
-
-
-
               default:
-                  $this->redirectTo = '/approval';
+
+                  $this->redirectTo = '/';
                   return $this->redirectTo;
           }
 
