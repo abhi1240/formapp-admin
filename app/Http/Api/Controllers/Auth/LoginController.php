@@ -28,6 +28,10 @@ class LoginController extends Controller
         $data = array();
         $error = array();
 
+        $data['success'] = 'false';
+        $data['error'] = 'true';
+
+
         $seeder = Seeders::where('email', $request->email)->first();
         $credentials = $request->only('email', 'password');
         if (Auth::guard('seeder')->attempt($credentials)) {
@@ -47,15 +51,24 @@ class LoginController extends Controller
             }
             Seeders::where('id', $seeder->id)->update(['api_token' => $api_token]);
             Seeders::where('id', $seeder->id)->update(['session_id' => $new_session_id]);
-          $data['user'] = Seeders::where('id', $seeder->id)->first();
+           $data['user'] = Seeders::where('id', $seeder->id)->first();
 
-          // $data['user'] = Auth::guard('seeder')->user();
+           if($data['user']) {
 
-          return response()->json($data);
+             $data['success'] = 'true';
+             $data['error'] = 'false';
+             return response()->json($data);
+
+           } else {
+             $data['success'] = 'false';
+             $data['error'] = 'true';
+             return response()->json($data);
+           }
 
         }else {
-          $error['status'] = 'Unauthorised seeder';
-          return response()->json($error);
+          $data['success'] = 'false';
+          $data['error'] = 'Unauthorised seeder';
+          return response()->json($data);
         }
       }
   }

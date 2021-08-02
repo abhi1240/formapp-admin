@@ -73,6 +73,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'api_token' => Str::random(80),
+            'rights' => '4',
         ]);
 
         $admin = User::where('rights', 1)->first();

@@ -15,7 +15,7 @@ class AccountsController extends Controller
 
     public function new_accounts()
     {
-      $users = User::whereNull('rights')->orderByDesc('id')->get();
+      $users = User::where('rights','4')->orderByDesc('id')->get();
       // dd($user);
         return view('admin.accounts.new-staff',compact('users'));
     }

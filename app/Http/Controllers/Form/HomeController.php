@@ -54,7 +54,7 @@ class HomeController extends Controller
 
     public function approval()
     {
-        return view('user.approve');
+        return view('approve');
     }
 
     public function update_user_info(Request $request){

@@ -91,7 +91,7 @@
 																	</td>
 	                                 <td>
 	                                    <div class="userDatatable-content">
-	                                       {{$img->user_id}}
+	                                       {{$img->is_id}}
 	                                    </div>
 	                                 </td>
 	                                 <td>
@@ -106,7 +106,7 @@
 	                                 </td>
 																	 <td>
 	                                    <div class="userDatatable-content">
-	                                       {{$img->language_id}}
+	                                       {{$img->language}}
 	                                    </div>
 	                                 </td>
 																	 <td>

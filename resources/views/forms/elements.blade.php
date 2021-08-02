@@ -169,19 +169,7 @@
                                     <option>5</option>
                                  </select>
                               </div>
-                              <div class="form-group">
-                                 <label for="exampleFormControlSelect2" class="il-gray fs-14 fw-500 align-center">Example
-                                 multiple select</label>
-                                 <div class="atbd-select ">
-                                    <select name="select-tag" id="select-tag" class="form-control " multiple="multiple">
-                                       <option value="01">Option 1</option>
-                                       <option value="02">Option 2</option>
-                                       <option value="03">Option 3</option>
-                                       <option value="04">Option 4</option>
-                                       <option value="05">Option 5</option>
-                                    </select>
-                                 </div>
-                              </div>
+                              
                               <div class="form-group form-element-textarea mb-20">
                                  <label for="exampleFormControlTextarea1" class="il-gray fs-14 fw-500 align-center">Example
                                  textarea</label>

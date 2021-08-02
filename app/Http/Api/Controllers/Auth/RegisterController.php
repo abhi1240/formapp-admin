@@ -37,6 +37,10 @@ class RegisterController extends Controller
             } else {
               $data = array();
               $error = array();
+
+              $data['success'] = 'false';
+              $data['error'] = 'true';
+
               $seeder_data = Seeders::create([
                   'name' => $request['name'],
                   'email' => $request['email'],
@@ -59,11 +63,14 @@ class RegisterController extends Controller
           $admin->notify(new NewSeeder($seeder_data));
            }
 
-          // $data['seeder'] = $data['user'];
-          return response()->json($data);
+           $data['success'] = 'true';
+           $data['error'] = 'false';
+           return response()->json($data);
 
         }else {
-          return response()->json($error);
+          $data['success'] = 'false';
+          $data['error'] = 'Unauthorised seeder';
+          return response()->json($data);
         }
       }
     }

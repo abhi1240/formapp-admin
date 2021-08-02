@@ -18,6 +18,7 @@ class JobsRejected extends Model
       'cs_id',
       'paper_title',
       'publication',
+      'description',
       'language_id',
       'language',
       'paper_img',
@@ -40,6 +41,7 @@ class JobsRejected extends Model
       'category',
       'openings',
       'experience',
+      'reason',
 
   ];
 }

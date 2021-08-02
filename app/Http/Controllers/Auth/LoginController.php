@@ -34,6 +34,10 @@ class LoginController extends Controller
     public function redirectTo()
       {
           switch(Auth::user()->rights){
+            case 4:
+            $this->redirectTo = '/approval';
+            return $this->redirectTo;
+                break;
               case 1:
               $this->redirectTo = '/admin/dashboard';
               return $this->redirectTo;
@@ -54,8 +58,10 @@ class LoginController extends Controller
               return $this->redirectTo;
                   break;
 
+
+
               default:
-                  $this->redirectTo = '/';
+                  $this->redirectTo = '/approval';
                   return $this->redirectTo;
           }
 

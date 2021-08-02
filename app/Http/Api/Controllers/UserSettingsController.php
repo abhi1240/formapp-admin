@@ -24,6 +24,10 @@ class UserSettingsController extends Controller
 
       if($token_res) {
         $data = array();
+        $error = array();
+
+        $data['success'] = 'false';
+        $data['error'] = 'true';
         $seeder = Seeders::where('seeder_id',$is_id)->first();
         $oldemail = $seeder->email;
         $newemail = $request->email;
@@ -56,10 +60,16 @@ class UserSettingsController extends Controller
           }
         }
         if ($seeder_update) {
-          $data['message'] = "success";
-          return response()->json($data);
-        }
 
+           $data['success'] = 'true';
+           $data['error'] = 'false';
+           return response()->json($data);
+
+         } else {
+           $data['success'] = 'false';
+           $data['error'] = 'true';
+           return response()->json($data);
+         }
       } else {
         $error = array();
         $error['message'] = "Api Token Mismatched";

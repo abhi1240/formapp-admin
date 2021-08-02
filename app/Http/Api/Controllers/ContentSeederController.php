@@ -32,7 +32,7 @@ class ContentSeederController extends Controller
         $data = array();
         $cs_id_count = ApprovedImages::where('cs_id',$cs_id)->count();
         if ($cs_id_count > 0) {
-          $uncheck_img = ApprovedImages::where('cs_id',$cs_id)->where('updated_at','<',Carbon::parse('-24 hours'))->get();
+          $uncheck_img = ApprovedImages::where('cs_id',$cs_id)->whereDate('updated_at','<',Carbon::parse('-24 hours'))->get();
           if ($uncheck_img) {
             foreach ($uncheck_img as $key => $img_uncheck) {
               $update_uncheck = $img_uncheck->update([
@@ -120,6 +120,10 @@ class ContentSeederController extends Controller
 
           $today = Carbon::today();
           $data = array();
+          $error = array();
+
+          $data['success'] = 'false';
+          $data['error'] = 'true';
           $approved_images = ApprovedImages::where('id',$img_id)->first();
 
           if ($approved_images) {
@@ -165,15 +169,17 @@ class ContentSeederController extends Controller
           }
           if ($pending_jobs) {
             $approved_images->delete();
-            $data['message'] = "Success";
+            $data['success'] = 'true';
+            $data['error'] = 'false';
+            return response()->json($data);
+          }else {
+            $data['success'] = 'false';
+            $data['error'] = 'true';
             return response()->json($data);
           }
-
-
         } else {
-          $error = array();
-          $error['message'] = "Api Token Mismatched";
-          return response()->json($error);
+          $data['message'] = "Api Token Mismatched";
+          return response()->json($data);
         }
 
 

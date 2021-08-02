@@ -40,4 +40,6 @@
 <script src="{{ asset('js/leaflet-init.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 <script src="{{ asset('vendor_assets/js/datatables.min.js') }}"></script>
+<script src="{{ asset('vendor_assets/js/toastr.min.js') }}"></script>
+<script src="{{ asset('vendor_assets/js/switchery.min.js') }}"></script>
 {{-- <script src="{{ asset('js/file-explorer.js') }}"></script> --}}

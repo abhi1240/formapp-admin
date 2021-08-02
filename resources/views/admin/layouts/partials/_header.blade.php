@@ -102,10 +102,10 @@
                             </div>
                             <div class="nav-author__options">
                                 <ul>
-                                    <li>
+                                    {{-- <li>
                                         <a href="">
                                             <span data-feather="user"></span> Password reset</a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a href="{{route('admin.notifications')}}">
                                             <span data-feather="bell"></span>Notifications</a>

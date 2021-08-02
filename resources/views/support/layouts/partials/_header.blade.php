@@ -88,12 +88,19 @@
                 </li> --}}
                 <li class="nav-author">
                     <div class="dropdown-custom">
-                        <a href="javascript:;" class="nav-item-toggle"><img src="{{ asset('img/author-nav.jpg') }}"
-                                                                            alt="" class="rounded-circle"></a>
+                        <a href="javascript:;" class="nav-item-toggle">@if(Auth::user()->profile_pic_url)
+                          <img src="{{ Auth::user()->profile_pic_url }}" alt="" class="rounded-circle">
+                          @else
+                            <img src="{{ asset('img/author-nav.jpg') }}" alt="" class="rounded-circle">
+                        @endif</a>
                         <div class="dropdown-wrapper">
                             <div class="nav-author__info">
                                 <div class="author-img">
-                                    <img src="{{ asset('img/author-nav.jpg') }}" alt="" class="rounded-circle">
+                                  @if(Auth::user()->profile_pic_url)
+                                    <img src="{{ Auth::user()->profile_pic_url }}" alt="" class="rounded-circle">
+                                    @else
+                                      <img src="{{ asset('img/author-nav.jpg') }}" alt="" class="rounded-circle">
+                                  @endif
                                 </div>
                                 <div>
                                     <h6>{{ Auth::user()->name }}</h6>
@@ -103,8 +110,8 @@
                             <div class="nav-author__options">
                                 <ul>
                                     <li>
-                                        <a href="">
-                                            <span data-feather="user"></span> Password reset</a>
+                                        <a href="{{route('support.my_account')}}">
+                                            <span data-feather="user"></span> My Account</a>
                                     </li>
                                     {{-- <li>
                                         <a href="{{route('admin.notifications')}}">

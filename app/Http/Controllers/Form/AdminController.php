@@ -26,7 +26,7 @@ class AdminController extends Controller
       $data = array();
       $data['approved_users'] = Seeders::whereNotNull('approved_at')->count();
       $data['pending_users'] = Seeders::whereNull('approved_at')->count();
-      $data['new_accounts'] = User::whereNull('rights','')->count();
+      $data['new_accounts'] = User::where('rights','4')->count();
       $data['support_staff'] = User::where('rights','0')->count();
       $data['iqc'] = User::where('rights','2')->count();
       $data['cqc'] = User::where('rights','3')->count();

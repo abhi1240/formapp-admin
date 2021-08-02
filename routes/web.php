@@ -35,11 +35,14 @@ use App\Http\Controllers\Form\QualityCheckerController;
 use App\Http\Controllers\Form\QualityControlController;
 use App\Http\Controllers\Form\UserDashboardController;
 use App\Http\Controllers\Form\ImagesController;
+use App\Http\Controllers\Form\SupImagesController;
 use App\Http\Controllers\Form\TablesController;
 use App\Http\Controllers\Form\AppLinksController;
+use App\Http\Controllers\Form\IQCImagesController;
+use App\Http\Controllers\Form\JobsController;
 use Illuminate\Support\Facades\Route;
 
-/*
+/*IQCImagesController
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -97,7 +100,7 @@ Route::get('/refund-policy', [AppLinksController::class, 'refund_policy'])->name
 Route::get('/support-link', [AppLinksController::class, 'support'])->name('links.support');
 
     Route::group(['middleware' => 'auth'], function () {
-
+			Route::get('/approval', [HomeController::class, 'approval'])->name('approval');
 			//admin routes
 			Route::group(['middleware' => 'admin'], function () {
 					Route::group(['prefix' => 'admin'], function () {
@@ -152,26 +155,42 @@ Route::get('/support-link', [AppLinksController::class, 'support'])->name('links
 				});
 				//end
 			//support
+
+			Route::group(['middleware' => 'approved'], function () {
+
 			Route::group(['middleware' => 'support'], function () {
 	        Route::group(['prefix' => 'support'], function () {
 						Route::get('/dashboard', [SupportController::class, 'dashboard'])->name('support.dashboard');
-
+						Route::get('/my_account', [SupportController::class, 'my_account'])->name('support.my_account');
+						Route::post('/profile-update', [SupportController::class, 'update_info'])->name('update.support-info');
+			      Route::post('/profile-pic-update', [SupportController::class, 'upload_profile_pic'])->name('support.upload.profile.photo');
+						Route::post('/reset-password', [SupportController::class, 'reset_password'])->name('support.reset-password');
 						Route::group(['prefix' => 'tables'], function () {
 							//languages
 						Route::get('/languages', [SupportController::class, 'languages'])->name('support.tables.languages');
-						Route::post('/languages_store', [TablesController::class, 'languages_store'])->name('support.tables.languages.store');
-						Route::post('/languages_remove', [TablesController::class, 'languages_remove'])->name('support.tables.languages.remove');
-						Route::post('/languages_update', [TablesController::class, 'languages_update'])->name('support.tables.languages.update');
-						Route::get('/languages_status_update', [TablesController::class, 'languages_status_update'])->name('support.tables.languages.update.status');
+						Route::post('/languages_store', [SupportController::class, 'languages_store'])->name('support.tables.languages.store');
+						Route::post('/languages_remove', [SupportController::class, 'languages_remove'])->name('support.tables.languages.remove');
+						Route::post('/languages_update', [SupportController::class, 'languages_update'])->name('support.tables.languages.update');
+						Route::get('/languages_status_update', [SupportController::class, 'languages_status_update'])->name('support.tables.languages.update.status');
 
 						//papers
 						Route::get('/papers', [SupportController::class, 'papers'])->name('support.tables.papers');
-						Route::post('/papers_store', [TablesController::class, 'papers_store'])->name('support.tables.papers.store');
-						Route::post('/papers_remove', [TablesController::class, 'papers_remove'])->name('support.tables.papers.remove');
-						Route::post('/papers_update', [TablesController::class, 'papers_update'])->name('support.tables.papers.update');
-						Route::get('/papers_status_update', [TablesController::class, 'papers_status_update'])->name('support.tables.papers.update.status');
+						Route::post('/papers_store', [SupportController::class, 'papers_store'])->name('support.tables.papers.store');
+						Route::post('/papers_remove', [SupportController::class, 'papers_remove'])->name('support.tables.papers.remove');
+						Route::post('/papers_update', [SupportController::class, 'papers_update'])->name('support.tables.papers.update');
+						Route::get('/papers_status_update', [SupportController::class, 'papers_status_update'])->name('support.tables.papers.update.status');
 						//end
 						});
+
+						Route::group(['prefix' => 'images'], function () {
+							Route::get('/pending-images', [SupImagesController::class, 'pending_images'])->name('support.pending.images');
+							Route::get('/approved-images', [SupImagesController::class, 'approved_images'])->name('support.approved.images');
+							Route::get('/rejected-images', [SupImagesController::class, 'rejected_images'])->name('support.rejected.images');
+							//reject and approve
+							Route::post('/reject_image', [SupImagesController::class, 'reject_image'])->name('support.reject.image');
+							Route::post('/approve_image', [SupImagesController::class, 'approve_image'])->name('support.approve.image');
+
+							});
 				});
 			});
 			//support ends
@@ -180,6 +199,20 @@ Route::get('/support-link', [AppLinksController::class, 'support'])->name('links
 			Route::group(['middleware' => 'quality_checker'], function () {
 	        Route::group(['prefix' => 'quality_checker'], function () {
 						Route::get('/dashboard', [QualityCheckerController::class, 'dashboard'])->name('quality_checker.dashboard');
+						Route::get('/my_account', [QualityCheckerController::class, 'my_account'])->name('quality_checker.my_account');
+						Route::post('/profile-update', [QualityCheckerController::class, 'update_info'])->name('update.quality_checker_info');
+			      Route::post('/profile-pic-update', [QualityCheckerController::class, 'upload_profile_pic'])->name('quality_checker.upload.profile.photo');
+						Route::post('/reset-password', [QualityCheckerController::class, 'reset_password'])->name('quality_checker.reset-password');
+
+						Route::group(['prefix' => 'images'], function () {
+							Route::get('/pending-images', [IQCImagesController::class, 'pending_images'])->name('quality_checker.pending.images');
+							Route::get('/approved-images', [IQCImagesController::class, 'approved_images'])->name('quality_checker.approved.images');
+							Route::get('/rejected-images', [IQCImagesController::class, 'rejected_images'])->name('quality_checker.rejected.images');
+							//reject and approve
+							Route::post('/reject_image', [IQCImagesController::class, 'reject_image'])->name('quality_checker.reject.image');
+							Route::post('/approve_image', [IQCImagesController::class, 'approve_image'])->name('quality_checker.approve.image');
+
+							});
 				});
 			});
 			//ends
@@ -188,11 +221,27 @@ Route::get('/support-link', [AppLinksController::class, 'support'])->name('links
 			Route::group(['middleware' => 'quality_controller'], function () {
 	        Route::group(['prefix' => 'quality_controller'], function () {
 						Route::get('/dashboard', [QualityControlController::class, 'dashboard'])->name('quality_controller.dashboard');
+						Route::get('/my_account', [QualityControlController::class, 'my_account'])->name('quality_controller.my_account');
+						Route::post('/profile-update', [QualityControlController::class, 'update_info'])->name('update.quality_controller_info');
+			      Route::post('/profile-pic-update', [QualityControlController::class, 'upload_profile_pic'])->name('quality_controller.upload.profile.photo');
+						Route::post('/reset-password', [QualityControlController::class, 'reset_password'])->name('quality_controller.reset-password');
+
+						Route::group(['prefix' => 'jobs'], function () {
+							Route::get('/pending_jobs', [JobsController::class, 'pending_jobs'])->name('quality_controller.pending_jobs');
+							Route::get('/approved_jobs', [JobsController::class, 'approved_jobs'])->name('quality_controller.approved_jobs');
+							Route::get('/rejected_jobs', [JobsController::class, 'rejected_jobs'])->name('quality_controller.rejected_jobs');
+							Route::get('/pending_job_view/{id}', [JobsController::class, 'pending_jobs_view'])->name('quality_controller.pending_jobs_view');
+							Route::get('/approved_job_view/{id}', [JobsController::class, 'approved_jobs_view'])->name('quality_controller.approved_jobs_view');
+							Route::get('/rejected_job_view/{id}', [JobsController::class, 'rejected_jobs_view'])->name('quality_controller.rejected_jobs_view');
+
+							Route::post('/job_reject', [JobsController::class, 'job_reject'])->name('quality_controller.job_reject');
+							Route::post('/job_approve', [JobsController::class, 'job_approve'])->name('quality_controller.job_approve');
+							});
 				});
 			});
 			//ends
-    Route::get('/approval', [HomeController::class, 'approval'])->name('approval');
 
+	});
 
     Route::group(['prefix' => 'dashboards'], function () {
         Route::get('/social-media', [DashboardController::class, 'index'])->name('dashboards.index');

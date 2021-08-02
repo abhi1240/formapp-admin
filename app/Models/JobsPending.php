@@ -18,6 +18,7 @@ class JobsPending extends Model
       'cs_id',
       'paper_title',
       'publication',
+      'description',
       'language_id',
       'language',
       'paper_img',
