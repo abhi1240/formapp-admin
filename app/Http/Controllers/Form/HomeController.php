@@ -56,6 +56,10 @@ class HomeController extends Controller
     {
         return view('approve');
     }
+    public function home()
+    {
+        return view('home');
+    }
 
     public function update_user_info(Request $request){
         $user_id = $request->get('id');

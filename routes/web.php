@@ -101,6 +101,7 @@ Route::get('/support-link', [AppLinksController::class, 'support'])->name('links
 
     Route::group(['middleware' => 'auth'], function () {
 			Route::get('/approval', [HomeController::class, 'approval'])->name('approval');
+			Route::get('/home', [HomeController::class, 'home'])->name('home');
 			//admin routes
 			Route::group(['middleware' => 'admin'], function () {
 					Route::group(['prefix' => 'admin'], function () {
