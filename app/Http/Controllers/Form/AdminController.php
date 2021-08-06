@@ -7,6 +7,8 @@ use App\Http\Controllers\Form\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Seeders;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\Models\ApprovedImages;
 use App\Models\PendingImages;
 use App\Models\RejectedImages;
@@ -82,6 +84,8 @@ class AdminController extends Controller
           $randomString .= $characters[rand(0, $charactersLength - 1)];
       }
       $seeder_id = $randomString.'-'.$id;
+
+
       // dd($seeder_id);
       if ($seeder) {
         $update = $seeder->update([
@@ -161,5 +165,132 @@ class AdminController extends Controller
          } else {
          }
      }
+  }
+
+  public function create_account(request $request){
+
+    return view('admin.accounts.create_account');
+
+  }
+
+  public function store_account(request $request){
+    // dd($request);
+    $data = array();
+
+    $validator = $request->validate([
+      'name'=>'required',
+      'email'=>'required|email|unique:users',
+      'phone_num' => 'required|unique:users,phone_num|min:10|regex:/^[7-9][0-9]{9}$/',
+      'rights' => 'required',
+    ]);
+
+
+    if ($validator) {
+      $id_last = User::all()->last()->id;
+      $id = $id_last + 1;
+
+      $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      $charactersLength = strlen($characters);
+      $randomString = 'ISU-';
+      for ($i = 0; $i < 6; $i++) {
+          $randomString .= $characters[rand(0, $charactersLength - 1)];
+      }
+      $user_id = $randomString.'-'.$id;
+
+      if ($request->get('rights') == 0) {
+        $position = 'Support';
+      }elseif ($request->get('rights') == 2) {
+        $position = 'Image Quality Checker';
+      }else {
+       $position = 'Content Quality Controller';
+      }
+
+      $data['password'] = $password  = $request->get('name').$request->get('phone_num');
+
+      $user = user::create([
+        'name' => $request->get('name'),
+        'email' => $request->get('email'),
+        'phone_num' => $request->get('phone_num'),
+        'rights' => $request->get('rights'),
+        'position' => $position,
+        'user_id' => $user_id,
+        'password' => Hash::make($password),
+      ]);
+
+      if ($user) {
+
+        $data['username'] = Session::flash('username', $request->get('email'));
+        $data['password'] = Session::flash('password', $password);
+        return redirect('/admin/accounts/create_account')->with('success','Successfully created Account');
+      }else {
+        return redirect('/admin/accounts/create_account')->with('danger','Please try later');
+      }
+
+
+    }
+
+  }
+
+  public function user_create_account(request $request){
+
+    return view('admin.user.create_account');
+
+  }
+
+  public function user_store_account(request $request){
+    // dd($request);
+    $data = array();
+
+    $validator = $request->validate([
+      'name'=>'required',
+      'email'=>'required|email|unique:seeders',
+      'phone_num' => 'required|unique:seeders,phone_num|min:10|regex:/^[7-9][0-9]{9}$/',
+      'rights' => 'required',
+    ]);
+
+
+    if ($validator) {
+      $id_last = Seeders::all()->last()->id;
+      $id = $id_last + 1;
+
+      $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      $charactersLength = strlen($characters);
+      $randomString = 'ISU-';
+      for ($i = 0; $i < 6; $i++) {
+          $randomString .= $characters[rand(0, $charactersLength - 1)];
+      }
+      $user_id = $randomString.'-'.$id;
+
+      if ($request->get('rights') == 0) {
+        $position = 'Image Seeder';
+      }else {
+       $position = 'Data Entry';
+      }
+
+      $data['password'] = $password  = $request->get('name').$request->get('phone_num');
+
+      $user = Seeders::create([
+        'name' => $request->get('name'),
+        'email' => $request->get('email'),
+        'phone_num' => $request->get('phone_num'),
+        'rights' => $request->get('rights'),
+        'position' => $position,
+        'user_id' => $user_id,
+        'approved_at' => Carbon::now(),
+        'password' => Hash::make($password),
+      ]);
+
+      if ($user) {
+
+        $data['username'] = Session::flash('username', $request->get('email'));
+        $data['password'] = Session::flash('password', $password);
+        return redirect('/admin/user/create_account')->with('success','Successfully created Account');
+      }else {
+        return redirect('/admin/user/create_account')->with('danger','Please try later');
+      }
+
+
+    }
+
   }
 }

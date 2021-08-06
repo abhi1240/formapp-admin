@@ -20,6 +20,12 @@
            <div class="col-lg-12">
               <div class="breadcrumb-main">
                  <h4 class="text-capitalize breadcrumb-title">New Accounts</h4>
+                 <div class="breadcrumb-action justify-content-center flex-wrap">
+                    <div class="action-btn">
+                       <a href="{{route('admin.create.account')}}" class="btn btn-sm btn-primary btn-add">
+                       <i class="la la-plus"></i> Add New</a>
+                    </div>
+                 </div>
               </div>
            </div>
         </div>

@@ -114,6 +114,9 @@ Route::get('/support-link', [AppLinksController::class, 'support'])->name('links
 						Route::get('/pending-users', [AdminController::class, 'pending_users'])->name('admin.pending.users');
 						Route::post('/approve', [AdminController::class, 'user_approve'])->name('admin.user.approve');
 						Route::get('/seeder_status_change', [AdminController::class, 'status_change']);
+						Route::get('/create_account', [AdminController::class, 'user_create_account'])->name('admin.user.create.account');
+						Route::post('/store_account', [AdminController::class, 'user_store_account'])->name('admin.user.store.account');
+
 					});
 
 					Route::group(['prefix' => 'images'], function () {
@@ -133,6 +136,9 @@ Route::get('/support-link', [AppLinksController::class, 'support'])->name('links
 						Route::post('/assign_job', [AccountsController::class, 'assign_job'])->name('assign.job');
 						Route::post('/remove_acc', [AccountsController::class, 'remove_acc'])->name('remove.acc');
 						Route::get('/status_change', [AccountsController::class, 'status_change'])->name('status.change');
+
+						Route::get('/create_account', [AdminController::class, 'create_account'])->name('admin.create.account');
+						Route::post('/store_account', [AdminController::class, 'store_account'])->name('admin.store.account');
 
 						});
 
