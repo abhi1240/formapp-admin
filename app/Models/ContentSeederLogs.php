@@ -13,7 +13,7 @@ class ContentSeederLogs extends Model
 
   protected $fillable = [
       'id',
-      'cs_id',
+      'seeder_id',
       'action',
       'description',
       'log_date',

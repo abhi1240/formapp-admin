@@ -10,6 +10,7 @@ use App\Models\Seeders;
 use App\Models\ApprovedImages;
 use App\Models\PendingImages;
 use App\Models\RejectedImages;
+use App\Models\AdminLogs;
 use Illuminate\Support\Facades\Validator;
 
 use Carbon\Carbon;
@@ -88,6 +89,14 @@ class AdminController extends Controller
           'seeder_id' => $seeder_id,
         ]);
         if ($update) {
+
+          $admin_log = AdminLogs::create([
+            'admin_id' => 'admin',
+            'seeder_id' => $seeder_id,
+            'action' => 'Seeder approved',
+            'description' => 'Admin approved'. $seeder->name,
+            'log_date' => Carbon::now(),
+          ]);
           return response()->json(['success' => 'User Approved Successfully']);
         }else {
           return response()->json(['error' => 'Please Try Later']);
@@ -137,6 +146,14 @@ class AdminController extends Controller
              'status' => $request->status,
            ]);
            if ($user_update) {
+
+             $admin_log = AdminLogs::create([
+               'admin_id' => 'admin',
+               'seeder_id' => $user->seeder_id,
+               'action' => 'stauts changed',
+               'description' => 'Admin changed' . $user->name . 'status',
+               'log_date' => Carbon::now(),
+             ]);
              return response()->json(['success' => 'Successfully Changed Status ']);
            }else {
              return response()->json(['error' => 'Please Try later']);

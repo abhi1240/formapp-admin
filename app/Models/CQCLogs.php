@@ -12,11 +12,13 @@ class CQCLogs extends Model
   protected $table = "logs_cqc";
 
   protected $fillable = [
-      'id',
-      'cqc_id',
-      'action',
-      'description',
-      'log_date',
+    'id',
+    'admin_id',
+    'seeder_id',
+    'user_id',
+    'action',
+    'description',
+    'log_date',
 
   ];
 }

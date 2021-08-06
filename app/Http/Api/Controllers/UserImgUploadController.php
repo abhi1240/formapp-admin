@@ -13,6 +13,7 @@ use App\Models\ApprovedImages;
 use App\Models\RejectedImages;
 use App\Models\MasterTables;
 use App\Models\Languages;
+use App\Models\ImageSeederLogs;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
@@ -103,7 +104,12 @@ class UserImgUploadController extends Controller
 
               $save_success = $create->save();
               if ($save_success) {
-
+                $log = ImageSeederLogs::create([
+                  'seeder_id' => $is_id,
+                  'action' => 'Image uploaded',
+                  'description' => 'uploaded image' .' '.$paper_img,
+                  'log_date' => Carbon::now(),
+                ]);
                 $data['success'] = 'true';
                 $data['error'] = 'false';
                 $data['duplicate'] = 'false';
@@ -161,6 +167,22 @@ class UserImgUploadController extends Controller
         }
 
         if ($seeder_update) {
+
+          if ($seeders->rights == 0) {
+            $log = ImageSeederLogs::create([
+              'seeder_id' => $is_id,
+              'action' => 'Profile updated',
+              'description' =>  $seeders->name.' '.'updated profile',
+              'log_date' => Carbon::now(),
+            ]);
+          }else {
+            $log = ContentSeederLogs::create([
+              'seeder_id' => $is_id,
+              'action' => 'Profile photo updated',
+              'description' =>  $seeders->name.' '.'updated photo profile',
+              'log_date' => Carbon::now(),
+            ]);
+          }
           $data['success'] = 'true';
           $data['error'] = 'false';
           return response()->json($data);

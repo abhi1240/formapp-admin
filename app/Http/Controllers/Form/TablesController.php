@@ -6,6 +6,7 @@ use App\Http\Controllers\Form\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Languages;
+use App\Models\AdminLogs;
 use App\Models\Papers;
 use Carbon\Carbon;
 
@@ -24,7 +25,12 @@ class TablesController extends Controller
                'name' => $name,
              ]);
              if ($language) {
-
+               $admin_log = AdminLogs::create([
+                 'admin_id' => 'admin',
+                 'action' => 'Added new language',
+                 'description' => 'Admin created new language'. '' .$request->name,
+                 'log_date' => Carbon::now(),
+               ]);
                return response()->json(['success' => 'Successfully added']);
 
              }else {
@@ -38,6 +44,12 @@ class TablesController extends Controller
            if ($language) {
              $language_remove = $language->delete();
              if ($language_remove) {
+               $admin_log = AdminLogs::create([
+                 'admin_id' => 'admin',
+                 'action' => 'removed language',
+                 'description' => 'Admin removed language' . ' ' . $language->name,
+                 'log_date' => Carbon::now(),
+               ]);
                return response()->json(['success' => 'Successfully Removed ']);
              }else {
                return response()->json(['error' => 'Please Try later']);
@@ -56,6 +68,12 @@ class TablesController extends Controller
               'name' => $name,
             ]);
             if ($language_update) {
+              $admin_log = AdminLogs::create([
+                'admin_id' => 'admin',
+                'action' => 'Updated language',
+                'description' => 'Admin updated language'. '' .$language->name,
+                'log_date' => Carbon::now(),
+              ]);
               return response()->json(['success' => 'Successfully updated ']);
             }else {
               return response()->json(['error' => 'Please Try later']);
@@ -73,6 +91,12 @@ class TablesController extends Controller
                'status' => $request->status,
              ]);
              if ($language_update) {
+               $admin_log = AdminLogs::create([
+                 'admin_id' => 'admin',
+                 'action' => 'Updated language status',
+                 'description' => 'Admin updated status of'. '' .$language->name,
+                 'log_date' => Carbon::now(),
+               ]);
                return response()->json(['success' => 'Successfully updated ']);
              }else {
                return response()->json(['error' => 'Please Try later']);
@@ -96,7 +120,12 @@ class TablesController extends Controller
                   'name' => $name,
                 ]);
                 if ($papers) {
-
+                  $admin_log = AdminLogs::create([
+                    'admin_id' => 'admin',
+                    'action' => 'Added new paper',
+                    'description' => 'Admin added new paper'. '' .$request->name,
+                    'log_date' => Carbon::now(),
+                  ]);
                   return response()->json(['success' => 'Successfully added']);
 
                 }else {
@@ -110,6 +139,12 @@ class TablesController extends Controller
               if ($papers) {
                 $papers_remove = $papers->delete();
                 if ($papers_remove) {
+                  $admin_log = AdminLogs::create([
+                    'admin_id' => 'admin',
+                    'action' => 'Added removed paper',
+                    'description' => 'Admin removed paper'. '' .$papers->name,
+                    'log_date' => Carbon::now(),
+                  ]);
                   return response()->json(['success' => 'Successfully Removed ']);
                 }else {
                   return response()->json(['error' => 'Please Try later']);
@@ -128,6 +163,12 @@ class TablesController extends Controller
                  'name' => $name,
                ]);
                if ($papers_update) {
+                 $admin_log = AdminLogs::create([
+                   'admin_id' => 'admin',
+                   'action' => 'Added updated paper',
+                   'description' => 'Admin updated paper'. '' .$papers->name,
+                   'log_date' => Carbon::now(),
+                 ]);
                  return response()->json(['success' => 'Successfully updated ']);
                }else {
                  return response()->json(['error' => 'Please Try later']);
@@ -145,6 +186,12 @@ class TablesController extends Controller
                   'status' => $request->status,
                 ]);
                 if ($papers_update) {
+                  $admin_log = AdminLogs::create([
+                    'admin_id' => 'admin',
+                    'action' => 'Status changed',
+                    'description' => 'Admin changed paper status of'. '' .$papers->name,
+                    'log_date' => Carbon::now(),
+                  ]);
                   return response()->json(['success' => 'Successfully updated ']);
                 }else {
                   return response()->json(['error' => 'Please Try later']);

@@ -57,6 +57,9 @@
 	                                 <th>
 	                                    <span class="userDatatable-title">Email</span>
 	                                 </th>
+																	 <th>
+	                                    <span class="userDatatable-title">Role</span>
+	                                 </th>
 	                                 <th>
 	                                    <span class="userDatatable-title">Action</span>
 	                                 </th>
@@ -81,6 +84,15 @@
 	                                       {{$user->email}}
 	                                    </div>
 	                                 </td>
+																	 <td>
+																	    <div class="userDatatable-content">
+																	      @if ($user->rights == 0)
+																	        Image Seeder
+																	        @else
+																	          Content Seeder
+																	     @endif
+																	    </div>
+																	 </td>
 	                                 <td>
 	                                    <div class="userDatatable-content">
 	                                       {{-- <a href="{{route('admin.user.approve',$user->id)}}" class="btn btn-primary " data-toggle="tooltip" title="Approve User">Approve</a> --}}

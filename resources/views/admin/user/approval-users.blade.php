@@ -58,6 +58,9 @@
 	                                    <span class="userDatatable-title">Email</span>
 	                                 </th>
 																	 <th>
+	                                    <span class="userDatatable-title">Role</span>
+	                                 </th>
+																	 <th>
 	                                    <span class="userDatatable-title">Status</span>
 	                                 </th>
 	                              </tr>
@@ -79,6 +82,15 @@
 	                                 <td>
 	                                    <div class="userDatatable-content">
 	                                       {{$user->email}}
+	                                    </div>
+	                                 </td>
+																	 <td>
+	                                    <div class="userDatatable-content">
+																				@if ($user->rights == 0)
+																					Image Seeder
+																					@else
+																						Content Seeder
+		 																	 @endif
 	                                    </div>
 	                                 </td>
 																	 <td>

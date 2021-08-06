@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Seeders;
 use Illuminate\Support\Facades\Crypt;
 use Carbon\Carbon;
+use App\Models\ImageSeederLogs;
+use App\Models\ContentSeederLogs;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 
@@ -42,6 +44,21 @@ class ResetPasswordController extends Controller
           }
         }
         if ($change_password) {
+          if ($seeder->rights == 0) {
+            $log = ImageSeederLogs::create([
+              'seeder_id' => $is_id,
+              'action' => 'Password changed',
+              'description' =>  $seeder->name.' '.'updated password',
+              'log_date' => Carbon::now(),
+            ]);
+          }else {
+            $log = ContentSeederLogs::create([
+              'seeder_id' => $is_id,
+              'action' => 'Profile updated',
+              'description' =>  $seeder->name.' '.'updated password',
+              'log_date' => Carbon::now(),
+            ]);
+          }
 
           $data['success'] = 'true';
           $data['error'] = 'false';

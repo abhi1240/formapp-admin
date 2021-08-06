@@ -11,6 +11,8 @@ use App\Models\Year;
 use App\Models\ApprovedImages;
 use App\Models\JobsPending;
 use App\Models\JobsCategory;
+use App\Models\ImageSeederLogs;
+use App\Models\ContentSeederLogs;
 use Illuminate\Support\Facades\Crypt;
 use Carbon\Carbon;
 use Auth;
@@ -169,6 +171,12 @@ class ContentSeederController extends Controller
           }
           if ($pending_jobs) {
             $approved_images->delete();
+            $log = ContentSeederLogs::create([
+              'seeder_id' => $cs_id,
+              'action' => 'data form uploaded',
+              'description' =>  'data form uploaded'
+              'log_date' => Carbon::now(),
+            ]);
             $data['success'] = 'true';
             $data['error'] = 'false';
             return response()->json($data);

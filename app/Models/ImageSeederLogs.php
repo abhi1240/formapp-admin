@@ -13,7 +13,7 @@ class ImageSeederLogs extends Model
 
   protected $fillable = [
       'id',
-      'is_id',
+      'seeder_id',
       'action',
       'description',
       'log_date',

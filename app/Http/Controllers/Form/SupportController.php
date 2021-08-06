@@ -11,6 +11,7 @@ use App\Models\Papers;
 use App\Models\PendingImages;
 use App\Models\ApprovedImages;
 use App\Models\RejectedImages;
+use App\Models\SupportLogs;
 use Carbon\Carbon;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\File;
@@ -48,12 +49,20 @@ class SupportController extends Controller
     }
 
     public function papers_store(Request $request){
+
           $name = $request->name;
              $papers =Papers::create([
                'name' => $name,
              ]);
              if ($papers) {
-
+               $user_id = Auth::user()->user_id;
+               $user = User::where('user_id',$user_id)->first();
+               $support_log = SupportLogs::create([
+                 'user_id' => $user_id,
+                 'action' => 'Added new paper',
+                 'description' => $user->name . ' '.'created new paper'. ' ' .$request->name,
+                 'log_date' => Carbon::now(),
+               ]);
                return response()->json(['success' => 'Successfully added']);
 
              }else {
@@ -67,6 +76,14 @@ class SupportController extends Controller
            if ($papers) {
              $papers_remove = $papers->delete();
              if ($papers_remove) {
+               $user_id = Auth::user()->user_id;
+               $user = User::where('user_id',$user_id)->first();
+               $support_log = SupportLogs::create([
+                 'user_id' => $user_id,
+                 'action' => 'Removed paper',
+                 'description' => $user->name . ' '.'removed paper'. ' ' .$request->name,
+                 'log_date' => Carbon::now(),
+               ]);
                return response()->json(['success' => 'Successfully Removed ']);
              }else {
                return response()->json(['error' => 'Please Try later']);
@@ -85,6 +102,14 @@ class SupportController extends Controller
               'name' => $name,
             ]);
             if ($papers_update) {
+              $user_id = Auth::user()->user_id;
+              $user = User::where('user_id',$user_id)->first();
+              $support_log = SupportLogs::create([
+                'user_id' => $user_id,
+                'action' => 'Updated paper',
+                'description' => $user->name . ' '.'updated paper'. ' ' .$request->name,
+                'log_date' => Carbon::now(),
+              ]);
               return response()->json(['success' => 'Successfully updated ']);
             }else {
               return response()->json(['error' => 'Please Try later']);
@@ -102,6 +127,14 @@ class SupportController extends Controller
                'status' => $request->status,
              ]);
              if ($papers_update) {
+               $user_id = Auth::user()->user_id;
+               $user = User::where('user_id',$user_id)->first();
+               $support_log = SupportLogs::create([
+                 'user_id' => $user_id,
+                 'action' => 'updated status of paper',
+                 'description' => $user->name . ' '.'updated status of paper'. ' ' .$request->name,
+                 'log_date' => Carbon::now(),
+               ]);
                return response()->json(['success' => 'Successfully updated ']);
              }else {
                return response()->json(['error' => 'Please Try later']);
@@ -117,7 +150,14 @@ class SupportController extends Controller
                   'name' => $name,
                 ]);
                 if ($language) {
-
+                  $user_id = Auth::user()->user_id;
+                  $user = User::where('user_id',$user_id)->first();
+                  $support_log = SupportLogs::create([
+                    'user_id' => $user_id,
+                    'action' => 'Added new language',
+                    'description' => $user->name . ' '.'created new language'. ' ' .$request->name,
+                    'log_date' => Carbon::now(),
+                  ]);
                   return response()->json(['success' => 'Successfully added']);
 
                 }else {
@@ -131,6 +171,14 @@ class SupportController extends Controller
               if ($language) {
                 $language_remove = $language->delete();
                 if ($language_remove) {
+                  $user_id = Auth::user()->user_id;
+                  $user = User::where('user_id',$user_id)->first();
+                  $support_log = SupportLogs::create([
+                    'user_id' => $user_id,
+                    'action' => 'removed language',
+                    'description' => $user->name . ' '.'removed language'. ' ' .$request->name,
+                    'log_date' => Carbon::now(),
+                  ]);
                   return response()->json(['success' => 'Successfully Removed ']);
                 }else {
                   return response()->json(['error' => 'Please Try later']);
@@ -149,6 +197,14 @@ class SupportController extends Controller
                  'name' => $name,
                ]);
                if ($language_update) {
+                 $user_id = Auth::user()->user_id;
+                 $user = User::where('user_id',$user_id)->first();
+                 $support_log = SupportLogs::create([
+                   'user_id' => $user_id,
+                   'action' => 'Updated language',
+                   'description' => $user->name . ' '.'updated language'. ' ' .$request->name,
+                   'log_date' => Carbon::now(),
+                 ]);
                  return response()->json(['success' => 'Successfully updated ']);
                }else {
                  return response()->json(['error' => 'Please Try later']);
@@ -166,6 +222,14 @@ class SupportController extends Controller
                   'status' => $request->status,
                 ]);
                 if ($language_update) {
+                  $user_id = Auth::user()->user_id;
+                  $user = User::where('user_id',$user_id)->first();
+                  $support_log = SupportLogs::create([
+                    'user_id' => $user_id,
+                    'action' => 'updated status of language',
+                    'description' => $user->name . ' '.'updated status of language'. ' ' .$request->name,
+                    'log_date' => Carbon::now(),
+                  ]);
                   return response()->json(['success' => 'Successfully updated ']);
                 }else {
                   return response()->json(['error' => 'Please Try later']);
@@ -203,6 +267,14 @@ class SupportController extends Controller
               ]);
 
               if ($support_update) {
+                $user_id = Auth::user()->user_id;
+                $user = User::where('user_id',$user_id)->first();
+                $support_log = SupportLogs::create([
+                  'user_id' => $user_id,
+                  'action' => 'Updated profile',
+                  'description' => $user->name . ' '.'updated profile',
+                  'log_date' => Carbon::now(),
+                ]);
               return redirect('/support/my_account')->with('success','Successfully updated Profile info.');
             }else {
               return redirect('/support/my_account')->with('danger','Please try later.');
@@ -234,6 +306,14 @@ class SupportController extends Controller
               }
 
               if ($update_new) {
+                $user_id = Auth::user()->user_id;
+                $user = User::where('user_id',$user_id)->first();
+                $support_log = SupportLogs::create([
+                  'user_id' => $user_id,
+                  'action' => 'Updated profile photo',
+                  'description' => $user->name . ' '.'updated profile photo',
+                  'log_date' => Carbon::now(),
+                ]);
                 return redirect('/support/my_account')->with('success','profile updated successfilly');
               }
 
@@ -255,6 +335,14 @@ class SupportController extends Controller
             ]);
             }
             if ($change_password) {
+              $user_id = Auth::user()->user_id;
+              $user = User::where('user_id',$user_id)->first();
+              $support_log = SupportLogs::create([
+                'user_id' => $user_id,
+                'action' => 'Updated password',
+                'description' => $user->name . ' '.'updated password',
+                'log_date' => Carbon::now(),
+              ]);
               return redirect('/support/my_account')->with('success','Password updated successfilly');
             }
           }

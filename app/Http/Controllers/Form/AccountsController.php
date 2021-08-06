@@ -6,6 +6,7 @@ use App\Http\Controllers\Form\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\AdminLogs;
 use Carbon\Carbon;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Validator;
@@ -64,17 +65,32 @@ class AccountsController extends Controller
            }
            $user_id = $randomString.'-'.$id;
 
+           if ($request->rights == 0) {
+             $position = 'Support';
+           }elseif ($request->rights == 2) {
+             $position = 'Image Quality Checker';
+           }else {
+            $position = 'Content Quality Controller';
+           }
+
 
            $user = User::where('id',$id)->first();
            if ($user) {
              $user_update = $user->update([
                'user_id' => $user_id,
                'rights' => $request->rights,
+               'position' => $position,
                'approved_at' => Carbon::now(),
              ]);
              // return response()->json(json_encode($user));
              if ($user_update) {
-
+               $admin_log = AdminLogs::create([
+                 'admin_id' => 'admin',
+                 'user_id' => $user_id,
+                 'action' => 'Job assigned',
+                 'description' => 'Admin appoints' . $user->name . 'as' . $request->rights,
+                 'log_date' => Carbon::now(),
+               ]);
                return response()->json(['success' => 'Successfully assigned job']);
 
              }else {
@@ -108,7 +124,13 @@ class AccountsController extends Controller
              $user_update = $user->delete();
              // return response()->json(json_encode($user));
              if ($user_update) {
-
+               $admin_log = AdminLogs::create([
+                 'admin_id' => 'admin',
+                 'user_id' => $user->user_id,
+                 'action' => 'Account Removed',
+                 'description' => 'Admin removed user account',
+                 'log_date' => Carbon::now(),
+               ]);
                return response()->json(['success' => 'Successfully Removed ']);
 
              }else {
@@ -141,6 +163,13 @@ class AccountsController extends Controller
                'status' => $request->status,
              ]);
              if ($user_update) {
+               $admin_log = AdminLogs::create([
+                 'admin_id' => 'admin',
+                 'user_id' => $user->user_id,
+                 'action' => 'Status Changed',
+                 'description' => 'Admin changed account status',
+                 'log_date' => Carbon::now(),
+               ]);
                return response()->json(['success' => 'Successfully Changed Status ']);
              }else {
                return response()->json(['error' => 'Please Try later']);

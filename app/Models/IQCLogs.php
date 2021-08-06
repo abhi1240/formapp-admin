@@ -12,11 +12,12 @@ class IQCLogs extends Model
   protected $table = "logs_iqc";
 
   protected $fillable = [
-      'id',
-      'iqc_id',
-      'action',
-      'description',
-      'log_date',
-
+    'id',
+    'admin_id',
+    'seeder_id',
+    'user_id',
+    'action',
+    'description',
+    'log_date',
   ];
 }

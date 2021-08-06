@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\PendingImages;
 use App\Models\ApprovedImages;
 use App\Models\RejectedImages;
+use App\Models\SupportLogs;
 use Carbon\Carbon;
 use Auth;
 
@@ -55,6 +56,14 @@ class SupImagesController extends Controller
 
         if ($create) {
           $image_reject = $image->delete();
+          $user_id = Auth::user()->user_id;
+          $user = User::where('user_id',$user_id)->first();
+          $support_log = SupportLogs::create([
+            'user_id' => $user_id,
+            'action' => 'Image rejected',
+            'description' => $user->name . ' '.'rejected image'. ' '.$image->id,
+            'log_date' => Carbon::now(),
+          ]);
           return response()->json(['success' => 'Successfully Rejected Image']);
         }else {
           return response()->json(['error' => 'Please Try later']);
@@ -85,6 +94,14 @@ class SupImagesController extends Controller
 
         if ($create) {
           $image_approve = $image->delete();
+          $user_id = Auth::user()->user_id;
+          $user = User::where('user_id',$user_id)->first();
+          $support_log = SupportLogs::create([
+            'user_id' => $user_id,
+            'action' => 'Image approved',
+            'description' => $user->name . ' '.'approved image'. ' '.$image->id,
+            'log_date' => Carbon::now(),
+          ]);
           return response()->json(['success' => 'Successfully Approved Image']);
         }else {
           return response()->json(['danger' => 'Please Try later']);

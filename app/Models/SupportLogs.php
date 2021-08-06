@@ -12,11 +12,12 @@ class SupportLogs extends Model
   protected $table = "logs_support";
 
   protected $fillable = [
-      'id',
-      'sup_id',
-      'action',
-      'description',
-      'log_date',
-
+    'id',
+    'admin_id',
+    'seeder_id',
+    'user_id',
+    'action',
+    'description',
+    'log_date',
   ];
 }

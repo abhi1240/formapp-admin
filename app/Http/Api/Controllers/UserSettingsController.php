@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Seeders;
+use App\Models\ImageSeederLogs;
+use App\Models\ContentSeederLogs;
 use Illuminate\Support\Facades\Crypt;
 use Carbon\Carbon;
 use Auth;
@@ -60,6 +62,23 @@ class UserSettingsController extends Controller
           }
         }
         if ($seeder_update) {
+          if ($seeder->rights == 0) {
+            $log = ImageSeederLogs::create([
+              'seeder_id' => $is_id,
+              'action' => 'Profile updated',
+              'description' =>  $seeder->name.' '.'updated profile',
+              'log_date' => Carbon::now(),
+            ]);
+          }else {
+            $log = ContentSeederLogs::create([
+              'seeder_id' => $is_id,
+              'action' => 'Profile updated',
+              'description' =>  $seeder->name.' '.'updated profile',
+              'log_date' => Carbon::now(),
+            ]);
+          }
+
+
 
            $data['success'] = 'true';
            $data['error'] = 'false';

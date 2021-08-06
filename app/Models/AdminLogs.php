@@ -14,6 +14,8 @@ class AdminLogs extends Model
   protected $fillable = [
       'id',
       'admin_id',
+      'seeder_id',
+      'user_id',
       'action',
       'description',
       'log_date',

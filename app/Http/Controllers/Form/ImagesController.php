@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\PendingImages;
 use App\Models\ApprovedImages;
 use App\Models\RejectedImages;
+use App\Models\AdminLogs;
 use Carbon\Carbon;
 use Auth;
 
@@ -55,6 +56,14 @@ class ImagesController extends Controller
 
         if ($create) {
           $image_reject = $image->delete();
+          $admin_log = AdminLogs::create([
+            'admin_id' => 'admin',
+            'seeder_id' => $image->is_id,
+            'action' => 'Image Rejected',
+            'description' => 'Admin rejected image',
+            'log_date' => Carbon::now(),
+          ]);
+
           return response()->json(['success' => 'Successfully Rejected Image']);
         }else {
           return response()->json(['error' => 'Please Try later']);
@@ -85,6 +94,14 @@ class ImagesController extends Controller
 
         if ($create) {
           $image_approve = $image->delete();
+
+          $admin_log = AdminLogs::create([
+            'admin_id' => 'admin',
+            'seeder_id' => $image->is_id,
+            'action' => 'Image Approved',
+            'description' => 'Admin approved image',
+            'log_date' => Carbon::now(),
+          ]);
           return response()->json(['success' => 'Successfully Approved Image']);
         }else {
           return response()->json(['danger' => 'Please Try later']);
