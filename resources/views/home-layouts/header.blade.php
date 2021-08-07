@@ -38,10 +38,6 @@
                 <li class="nav-item  g-mx-10--lg g-mx-15--xl active">
                   <a id="login_card" href="{{route('login')}}" class="nav-link g-py-7 g-px-0">Login</a>
                 </li>
-
-                <li class="nav-item  g-mx-10--lg g-mx-15--xl active">
-                  <a id="register_card" href="{{ route('register')}}" class="nav-link g-py-7 g-px-0">Register</a>
-                </li>
               </ul>
             </div>
             @endif

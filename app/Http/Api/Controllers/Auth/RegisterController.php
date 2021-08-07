@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\NewUser;
@@ -25,15 +26,19 @@ class RegisterController extends Controller
       $validator = Validator::make($request->all(), [
               'name' => 'required',
               'email' => 'required|unique:seeders',
+              'phone_num' => 'required|unique:seeders,phone_num|min:10|regex:/^[5-9][0-9]{9}$/',
               'password' => 'required',
          ], [
            'name' => 'name Error',
            'email' => 'email error',
+           'phone' => 'phone error',
            'password' => 'password error',
          ]);
          if($validator->fails())
             {
-              return response()->json(json_encode($validator));
+              $data = array();
+            $data['errors'] = $validator->errors();
+              return response()->json($data);
             } else {
               $data = array();
               $error = array();
